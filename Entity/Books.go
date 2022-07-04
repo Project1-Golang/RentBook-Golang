@@ -1,9 +1,9 @@
 package Entity
 
 type books struct {
-	id_book     string
-	title       bool
+	id_book     string `gorm:"primaryKey;type:varchar(36);"`
+	title       string
 	isbn        string
 	author      string
-	rent_status string
+	rent_status bool
 }
