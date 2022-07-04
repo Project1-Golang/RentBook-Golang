@@ -1,4 +1,4 @@
-package Entity
+package entity
 
 type books struct {
 	id_book     string `gorm:"primaryKey;type:varchar(36);"`
