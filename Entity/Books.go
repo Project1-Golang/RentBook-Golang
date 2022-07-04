@@ -1,4 +1,4 @@
-package Books
+package Entity
 
 type books struct {
 	id_book     string

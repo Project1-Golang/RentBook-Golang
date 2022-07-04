@@ -1,4 +1,4 @@
-package Rent_books
+package Entity
 
 type rent_book struct {
 	id_rent_book string

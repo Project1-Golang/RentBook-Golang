@@ -1,5 +1,9 @@
-package User_Address
+package Entity
 
-func main() {
-
+type user_address struct {
+	id_user string
+	street  string
+	city    string
+	state   string
+	ZIP     int
 }
