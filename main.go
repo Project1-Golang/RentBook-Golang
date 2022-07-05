@@ -25,22 +25,28 @@ func main() {
 
 		switch input {
 		case 1:
-			var newUsers entity.AksesUsers
-			// newUsers.Id_user = 1
-			fmt.Print("Masukkan nama: ")
-			fmt.Scanln(&newUsers)
-			fmt.Print("Masukkan nomorhp: ")
-			fmt.Scanln(&newUsers)
-			fmt.Print("Masukkan email: ")
-			fmt.Scanln(&newUsers)
-			fmt.Print("Masukkan user_Name: ")
-			fmt.Scanln(&newUsers)
-			fmt.Print("Masukkan password: ")
-			fmt.Scanln(&newUsers)
-			fmt.Print("Masukkan address: ")
-			fmt.Scanln(&newUsers)
+			// var adduser entity.AksesUsers
+			var newUsers entity.Users
+			newUsers.Id_user = "User1"
+			newUsers.Status = "1"
+			// newUsers.Deleted_at = nil
 
-			fmt.Println(newUsers)
+			fmt.Print("Masukkan nama: ")
+			fmt.Scanln(&newUsers.Name)
+			fmt.Print("Masukkan nomorhp: ")
+			fmt.Scanln(&newUsers.Nomer_HP)
+			fmt.Print("Masukkan email: ")
+			fmt.Scanln(&newUsers.Email)
+			fmt.Print("Masukkan user_Name: ")
+			fmt.Scanln(&newUsers.User_Name)
+			fmt.Print("Masukkan password: ")
+			fmt.Scanln(&newUsers.Password)
+			fmt.Print("Masukkan address: ")
+			fmt.Scanln(&newUsers.Address)
+
+			aksesUser := entity.AksesUsers{DB: conn}
+			aksesUser.TambahUserBaru(newUsers)
+			fmt.Println("Berhasl input User")
 		case 2:
 			fmt.Println("Menu Log In")
 			fmt.Print("Masukkan user_Name: ")

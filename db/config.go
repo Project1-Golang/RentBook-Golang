@@ -23,5 +23,4 @@ func InitDB() *gorm.DB {
 
 func MigrateDB(conn *gorm.DB) {
 	conn.AutoMigrate(entity.Users{}, entity.Books{}, entity.Rent_Book{})
-	// conn.Set("gorm:Users", "ENGINE=InnoDB").AutoMigrate(entity.Users{})
 }

@@ -4,7 +4,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -13,7 +12,7 @@ type Users struct {
 	Books      []Books     `gorm:"foreignKey:owned_by"`
 	Rent_Book  []Rent_Book `gorm:"foreignKey:owned_by"`
 	Name       string
-	Status     bool
+	Status     string
 	Nomer_HP   string
 	Email      string `gorm:"unique"`
 	User_Name  string `gorm:"unique"`
@@ -21,7 +20,7 @@ type Users struct {
 	Address    string
 	Created_at time.Time `gorm:"autoCreateTime"`
 	Updated_at time.Time `gorm:"autoCreateTime"`
-	Deleted_at time.Time `gorm:"index"`
+	// Deleted_at time.Time
 }
 
 type AksesUsers struct {
@@ -44,8 +43,8 @@ func (as *AksesUsers) TambahUserBaru(newUsers Users) Users {
 	// if newUsers.name == "Jerry" {
 	// 	newUsers.id_user = uint(1)
 	// }
-	uid := uuid.New()
-	newUsers.Id_user = uid.String()
+	// uid := uuid.New()
+	// newUsers.Id_user = uid.String()
 	err := as.DB.Create(&newUsers).Error
 	if err != nil {
 		log.Println(err)
