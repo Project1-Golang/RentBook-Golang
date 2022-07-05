@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"rentbook-golang/db"
+	"rentbook-golang/entity"
 )
 
 // "go-db/entity/users"
@@ -10,6 +11,7 @@ import (
 func main() {
 	conn := db.InitDB()
 	db.MigrateDB(conn)
+	AksesBook := entity.AksesBook{DB: conn}
 	// AksesUsers := entity.AksesUsers{DB: conn}
 	var input int = 0
 	for input != 99 {
@@ -24,18 +26,18 @@ func main() {
 		switch input {
 		case 1:
 			// var newUsers entity.AksesUsers
-			// newUsers.id_user = 1
-			fmt.Print("Masukkan nama: ")
+			// newUsers.Id_user = 1
+			// fmt.Print("Masukkan nama: ")
 			// fmt.Scanln(&newUsers.name)
-			fmt.Print("Masukkan nomorhp: ")
+			// fmt.Print("Masukkan nomorhp: ")
 			// fmt.Scanln(&newUsers.nomer_HP)
-			fmt.Print("Masukkan email: ")
+			// fmt.Print("Masukkan email: ")
 			// fmt.Scanln(&newUsers.email)
-			fmt.Print("Masukkan user_Name: ")
-			// fmt.Scanln(&newUsers.user_Name)
-			fmt.Print("Masukkan password: ")
+			// fmt.Print("Masukkan user_Name: ")
+			// fmt.Scanln(&newUsers.user_name)
+			// fmt.Print("Masukkan password: ")
 			// fmt.Scanln(&newUsers.password)
-			fmt.Print("Masukkan address: ")
+			// fmt.Print("Masukkan address: ")
 			// fmt.Scanln(&newUsers.address)
 			// res := AksesUsers.TambahUserBaru(newUsers)
 			// if res.ID == 0 {
@@ -52,9 +54,9 @@ func main() {
 
 		case 3:
 			fmt.Println("Daftar Buku Yang Ada")
-			// for _, val := range AksesBook.GetAllData() {
-			// 	fmt.Println(val)
-			// }
+			for _, val := range AksesBook.GetAllData() {
+				fmt.Println(val)
+			}
 		default:
 			continue
 		}
