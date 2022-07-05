@@ -67,6 +67,39 @@ func (as *AksesUsers) GetSpecificUser(UID int) Users {
 	return daftarUsers
 }
 
+func (as *AksesUsers) GetUserEmail(Email string) bool {
+	getEmail := as.DB.Where("email = ?", Email).Find(&Users{})
+	if err := getEmail.Error; err != nil {
+		return false
+	}
+	if aff := getEmail.RowsAffected; aff < 1 {
+		return false
+	}
+	return true
+}
+
+func (as *AksesUsers) GetUserName(UserName string) bool {
+	getUserName := as.DB.Where("user_name = ?", UserName).Find(&Users{})
+	if err := getUserName.Error; err != nil {
+		return false
+	}
+	if aff := getUserName.RowsAffected; aff < 1 {
+		return false
+	}
+	return true
+}
+
+func (as *AksesUsers) GetUserPassword(Password string) bool {
+	getPassword := as.DB.Where("password = ?", Password).Find(&Users{})
+	if err := getPassword.Error; err != nil {
+		return false
+	}
+	if aff := getPassword.RowsAffected; aff < 1 {
+		return false
+	}
+	return true
+}
+
 // func (as *AksesUsers) HapusMurid(IDUsers int) bool {
 // 	postExc := as.DB.Where("ID = ?", IDUsers).Delete(&users{})
 // 	// ada masalah ga(?)

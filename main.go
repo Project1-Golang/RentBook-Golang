@@ -6,11 +6,21 @@ import (
 	"rentbook-golang/entity"
 )
 
+func Halaman_login() (string, string) {
+	var username, pass string
+	fmt.Println("login..")
+	fmt.Println("Masukkan Username :")
+	fmt.Scanln(&username)
+	fmt.Println("Masukkan Password : ")
+	fmt.Scanln(&pass)
+	return username, pass
+}
+
 func main() {
 	conn := db.InitDB()
 	db.MigrateDB(conn)
 	AksesBook := entity.AksesBook{DB: conn}
-	// AksesUsers := entity.AksesUsers{DB: conn}
+	AksesUsers := entity.AksesUsers{DB: conn}
 	var input int = 0
 	for input != 99 {
 		fmt.Println("\tSistem Peminjaman Buku")
@@ -47,11 +57,17 @@ func main() {
 			aksesUser.TambahUserBaru(newUsers)
 			fmt.Println("Berhasil input User")
 		case 2:
-			fmt.Println("Menu Log In")
-			fmt.Print("Masukkan user_Name: ")
-			// fmt.Scanln(&newUsers.user_Name)
-			fmt.Print("Masukkan password: ")
-			// fmt.Scanln(&newUsers.password)
+			UserName, Password := Halaman_login()
+			UserAuth := AksesUsers.GetUserName(UserName)
+			passAuth := AksesUsers.GetUserPassword(Password)
+
+			if !UserAuth && !passAuth {
+				fmt.Println("Username dan Password Tidak tersedia \n Silahkan Register Terlebih dahulu")
+			} else if !passAuth || !UserAuth {
+				fmt.Println("Username atau Password anda Salah \n Silahkan Periksa Kembali")
+			} else {
+				fmt.Println("Anda Berhasil Login")
+			}
 
 		case 3:
 			fmt.Println("Daftar Buku Yang Ada")
