@@ -1,13 +1,10 @@
 package main
 
-import (
-	"go-db/db"
-	"go-db/entity/users"
-)
+// "go-db/entity/users"
 
 func main() {
-	conn := db.InitDB()
-	db.MigrateDB(conn)
+	// conn := db.InitDB()
+	// db.MigrateDB(conn)
 	// AksesUsers := entity.AksesUsers{DB: conn}
 	// var input int = 0
 	// for input != 99 {
