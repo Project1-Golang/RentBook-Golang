@@ -9,7 +9,8 @@ import (
 
 type Books struct {
 	Id_book     string `gorm:"primaryKey;type:varchar(36);"`
-	Owned_by    string `gorm:"foreignKey:id_users"`
+	Owned_by    string
+	Rent_Book   []Rent_Book `gorm:"foreignKey:Owned_by_book"`
 	Title_book  string
 	Isbn        string
 	Author      string

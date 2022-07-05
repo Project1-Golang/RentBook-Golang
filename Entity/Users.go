@@ -8,8 +8,9 @@ import (
 )
 
 type Users struct {
-	Id_user    string  `gorm:"primaryKey;type:varchar(36);"`
-	Books      []Books `gorm:"foreignKey:owned_by"`
+	Id_user    string      `gorm:"primaryKey;type:varchar(36);"`
+	Books      []Books     `gorm:"foreignKey:owned_by"`
+	Rent_Book  []Rent_Book `gorm:"foreignKey:owned_by"`
 	Name       string
 	Status     bool
 	Nomer_HP   string
