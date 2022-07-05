@@ -65,7 +65,7 @@ func (as *AksesBook) GetSpecificBuku(UID int) Books {
 }
 
 func (as *AksesBook) HapusBuku(IDBook int) bool {
-	postExc := as.DB.Where("ID = ?", id_book).Delete(&Books{})
+	postExc := as.DB.Where("ID = ?", Id_book).Delete(&Books{})
 	if err := postExc.Error; err != nil {
 		log.Fatal(err)
 		return false

@@ -6,8 +6,6 @@ import (
 	"rentbook-golang/entity"
 )
 
-// "go-db/entity/users"
-
 func main() {
 	conn := db.InitDB()
 	db.MigrateDB(conn)
