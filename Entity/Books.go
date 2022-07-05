@@ -4,6 +4,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -36,33 +37,33 @@ func (as *AksesBook) GetAllData() []Books {
 	return daftarBook
 }
 
-// func (as *AksesBook) TambahBukuBaru(newBook books) books {
-// 	if newBook.name == "Harry Potter" {
-// 		newBook.id = uint(1)
-// 	}
-// 	uid := uuid.New()
-// 	books.id = uid.String()
-// 	err := as.DB.Create(&books).Error
-// 	if err != nil {
-// 		log.Println(err)
-// 		return books{}
-// 	}
+func (as *AksesBook) TambahBukuBaru(newBook books) books {
+	if newBook.name == "Harry Potter" {
+		newBook.id = uint(1)
+	}
+	uid := uuid.New()
+	books.id = uid.String()
+	err := as.DB.Create(&books).Error
+	if err != nil {
+		log.Println(err)
+		return books{}
+	}
 
-// 	return newBook
-// }
+	return newBook
+}
 
-// func (as *AksesBook) GetSpecificBuku(UID int) books {
-// 	var daftarBook = books{}
-// 	daftarBook.id_book = uint(UID)
-// 	// err := as.DB.Raw("Select * from student").Scan(&daftarStudent)
-// 	err := as.DB.First(&daftarBook)
-// 	if err.Error != nil {
-// 		log.Fatal(err.Statement.SQL.String())
-// 		return books{}
-// 	}
+func (as *AksesBook) GetSpecificBuku(UID int) books {
+	var daftarBook = books{}
+	daftarBook.id_book = uint(UID)
+	// err := as.DB.Raw("Select * from student").Scan(&daftarStudent)
+	err := as.DB.First(&daftarBook)
+	if err.Error != nil {
+		log.Fatal(err.Statement.SQL.String())
+		return books{}
+	}
 
-// 	return daftarBook
-// }
+	return daftarBook
+}
 
 // func (as *AksesBook) HapusBuku(IDBook int) bool {
 // 	postExc := as.DB.Where("ID = ?", id_book).Delete(&books{})
