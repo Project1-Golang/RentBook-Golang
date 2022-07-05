@@ -57,6 +57,22 @@ func main() {
 			for _, val := range AksesBook.GetAllData() {
 				fmt.Println(val.Id_book, val.Title_book, val.Author)
 			}
+		case 4:
+			var newBook entity.Books
+			newBook.Id_book = "Book01"
+			newBook.Owned_by = "1"
+			newBook.Rent_status = true
+
+			fmt.Print("Masukkan Judul Buku: ")
+			fmt.Scanln(&newBook.Title_book)
+			fmt.Print("Masukkan Author: ")
+			fmt.Scanln(&newBook.Author)
+			fmt.Print("Masukkan ISBN: ")
+			fmt.Scanln(&newBook.Isbn)
+
+			AksesBook := entity.AksesBook{DB: conn}
+			AksesBook.TambahBukuBaru(newBook)
+			fmt.Println("Berhasl Input Data Buku")
 		default:
 			continue
 		}
