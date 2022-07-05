@@ -17,7 +17,7 @@ type Books struct {
 	Rent_status bool
 	Created_at  time.Time `gorm:"autoCreateTime"`
 	Apdated_at  time.Time `gorm:"autoCreateTime"`
-	Deleted_at  time.Time `gorm:"index"`
+	// Deleted_at  time.Time `gorm:"index"`
 }
 
 type AksesBook struct {
@@ -65,7 +65,7 @@ func (as *AksesBook) GetSpecificBuku(UID int) Books {
 }
 
 func (as *AksesBook) HapusBuku(IDBook int) bool {
-	postExc := as.DB.Where("ID = ?", Id_book).Delete(&Books{})
+	postExc := as.DB.Where("ID = ?", IDBook).Delete(&Books{})
 	if err := postExc.Error; err != nil {
 		log.Fatal(err)
 		return false

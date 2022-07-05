@@ -17,6 +17,7 @@ func main() {
 		fmt.Println("1. Register")
 		fmt.Println("2. Log In")
 		fmt.Println("3. Lihat Daftar Buku")
+		fmt.Println("4. Tambah Data Buku")
 		fmt.Println("99. Keluar")
 		fmt.Print("Masukkan Pilihan menu: ")
 		fmt.Scanln(&input)
@@ -44,7 +45,7 @@ func main() {
 
 			aksesUser := entity.AksesUsers{DB: conn}
 			aksesUser.TambahUserBaru(newUsers)
-			fmt.Println("Berhasl input User")
+			fmt.Println("Berhasil input User")
 		case 2:
 			fmt.Println("Menu Log In")
 			fmt.Print("Masukkan user_Name: ")
@@ -72,7 +73,7 @@ func main() {
 
 			AksesBook := entity.AksesBook{DB: conn}
 			AksesBook.TambahBukuBaru(newBook)
-			fmt.Println("Berhasl Input Data Buku")
+			fmt.Println("Berhasil Input Data Buku")
 		default:
 			continue
 		}
