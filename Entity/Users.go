@@ -7,26 +7,27 @@ import (
 	"gorm.io/gorm"
 )
 
-type users struct {
-	id_user    string `gorm:"primaryKey;type:varchar(36);"`
-	name       string
-	status     bool
-	nomer_HP   string
-	email      string `gorm:"unique" binding:"required,email"`
-	user_Name  string `gorm:"unique" binding:"required"`
-	password   string
-	address    string
-	created_at time.Time `gorm:"autoCreateTime"`
-	updated_at time.Time `gorm:"autoCreateTime"`
-	deleted_at time.Time `gorm:"index"`
+type Users struct {
+	Id_user    string  `gorm:"primaryKey;type:varchar(36);"`
+	Books      []Books `gorm:"foreignKey:owned_by"`
+	Name       string
+	Status     bool
+	Nomer_HP   string
+	Email      string `gorm:"unique"`
+	User_Name  string `gorm:"unique"`
+	Password   string
+	Address    string
+	Created_at time.Time `gorm:"autoCreateTime"`
+	Updated_at time.Time `gorm:"autoCreateTime"`
+	Deleted_at time.Time `gorm:"index"`
 }
 
 type AksesUsers struct {
 	DB *gorm.DB
 }
 
-func (as *AksesUsers) GetAllData() []users {
-	var daftarUsers = []users{}
+func (as *AksesUsers) GetAllData() []Users {
+	var daftarUsers = []Users{}
 	// err := as.DB.Raw("Select * from student").Scan(&daftarStudent)
 	err := as.DB.Find(&daftarUsers)
 	if err.Error != nil {

@@ -7,25 +7,25 @@ import (
 	"gorm.io/gorm"
 )
 
-type books struct {
-	id_book     string  `gorm:"primaryKey;type:varchar(36);"`
-	users       []users `gorm:"foreignKey:id_users"`
-	title_book  string
-	isbn        string
-	author      string
-	rent_status bool
-	created_at  time.Time `gorm:"autoCreateTime"`
-	updated_at  time.Time `gorm:"autoCreateTime"`
-	deleted_at  time.Time `gorm:"index"`
+type Books struct {
+	Id_book     string `gorm:"primaryKey;type:varchar(36);"`
+	Owned_by    string `gorm:"foreignKey:id_users"`
+	Title_book  string
+	Isbn        string
+	Author      string
+	Rent_status bool
+	Created_at  time.Time `gorm:"autoCreateTime"`
+	Apdated_at  time.Time `gorm:"autoCreateTime"`
+	Deleted_at  time.Time `gorm:"index"`
 }
 
 type AksesBook struct {
 	DB *gorm.DB
 }
 
-func (as *AksesBook) GetAllData() []books {
-	var daftarBook = []books{}
-	// err := as.DB.Raw("Select * from books").Scan(&daftarBook)
+func (as *AksesBook) GetAllData() []Books {
+	var daftarBook = []Books{}
+	// err := as.DB.Raw("Select * from Books").Scan(&daftarBook)
 	err := as.DB.Find(&daftarBook)
 	if err.Error != nil {
 		log.Fatal(err.Statement.SQL.String())
