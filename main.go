@@ -101,25 +101,30 @@ func main() {
 		case 4:
 			var newBook entity.Books
 			newBook.Id_book = "Book01"
-			newBook.Owned_by = "1"
+
 			newBook.Rent_status = true
+			var Id_user string
+			ID := AksesUsers.GetSpecificUser(Id_user)
+			newBook.Owned_by = ID.Id_user
 
 			fmt.Print("Masukkan Judul Buku: ")
-			fmt.Scanln(&newBook.Title_book)
+			fmt.Scan(&newBook.Title_book)
 			fmt.Print("Masukkan Author: ")
-			fmt.Scanln(&newBook.Author)
+			fmt.Scan(&newBook.Author)
 			fmt.Print("Masukkan ISBN: ")
-			fmt.Scanln(&newBook.Isbn)
+			fmt.Scan(&newBook.Isbn)
 
 			AksesBook := entity.AksesBook{DB: conn}
 			AksesBook.TambahBukuBaru(newBook)
 			fmt.Println("Berhasil Input Data Buku")
-		default:
-			continue
-
+		
 		case 7:
 			fmt.Println("Terimakasih Atas Kunjungannya")
 			menu = false
 		}
+
+	default:
+		continue
+
 	}
 }

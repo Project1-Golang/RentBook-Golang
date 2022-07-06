@@ -54,7 +54,7 @@ func (as *AksesUsers) TambahUserBaru(newUsers Users) Users {
 	return newUsers
 }
 
-func (as *AksesUsers) GetSpecificUser(UID int) Users {
+func (as *AksesUsers) GetSpecificUser(UID string) Users {
 	var daftarUsers = Users{}
 	// daftarUsers.Id_user = uint(UID)
 	// err := as.DB.Raw("Select * from student").Scan(&daftarStudent)
