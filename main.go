@@ -8,7 +8,7 @@ import (
 
 func Halaman_login() (string, string) {
 	var username, pass string
-	fmt.Println("login..")
+	fmt.Println("Silahkan Log In")
 	fmt.Println("Masukkan Username :")
 	fmt.Scanln(&username)
 	fmt.Println("Masukkan Password : ")
@@ -21,25 +21,28 @@ func main() {
 	db.MigrateDB(conn)
 	AksesBook := entity.AksesBook{DB: conn}
 	AksesUsers := entity.AksesUsers{DB: conn}
-	var input int = 0
-	for input != 99 {
-		fmt.Println("\tSistem Peminjaman Buku")
+	var menu = false
+	for !menu {
+		var input int = 0
+		fmt.Println("===============================")
+		fmt.Println("* Selamat Datang Perpustakaan *")
+		fmt.Println("===============================")
+		fmt.Println("Silahkan Pilih Menu:")
 		fmt.Println("1. Register")
 		fmt.Println("2. Log In")
 		fmt.Println("3. Lihat Daftar Buku")
-		fmt.Println("4. Tambah Data Buku")
-		fmt.Println("99. Keluar")
+		fmt.Println("4. Keluar")
 		fmt.Print("Masukkan Pilihan menu: ")
 		fmt.Scanln(&input)
+		// fmt.Println("4. Tambah Data Buku")
 
-		switch input {
-		case 1:
+		if input == 1 {
 			// var adduser entity.AksesUsers
 			var newUsers entity.Users
 			newUsers.Id_user = "User1"
 			newUsers.Status = "1"
 			// newUsers.Deleted_at = nil
-
+			fmt.Println("--- Silahkan Isi Data Anda Untuk Registrasi -----")
 			fmt.Print("Masukkan nama: ")
 			fmt.Scanln(&newUsers.Name)
 			fmt.Print("Masukkan nomorhp: ")
@@ -56,7 +59,7 @@ func main() {
 			aksesUser := entity.AksesUsers{DB: conn}
 			aksesUser.TambahUserBaru(newUsers)
 			fmt.Println("Berhasil input User")
-		case 2:
+		} else if input == 2 {
 			UserName, Password := Halaman_login()
 			UserAuth := AksesUsers.GetUserName(UserName)
 			passAuth := AksesUsers.GetUserPassword(Password)
@@ -67,13 +70,34 @@ func main() {
 				fmt.Println("Username atau Password anda Salah \n Silahkan Periksa Kembali")
 			} else {
 				fmt.Println("Anda Berhasil Login")
+				menu = true
 			}
-
-		case 3:
+		} else if input == 3 {
 			fmt.Println("Daftar Buku Yang Ada")
 			for _, val := range AksesBook.GetAllData() {
 				fmt.Println(val.Id_book, val.Title_book, val.Author)
 			}
+		} else {
+			fmt.Println("Terimakasih Atas Kunjungannya")
+			break
+		}
+
+	}
+	for menu {
+		var pilih int
+		fmt.Println("--------------- SELAMAT DATANG ---------------")
+		fmt.Println("----- Silahkan Pilih Fitur yang Tersedia -----")
+		fmt.Println("1. Lihat Akun Saya")
+		fmt.Println("2. Perbarui Akun Saya")
+		fmt.Println("3. Hapus Akun Saya")
+		fmt.Println("4. Tambah Buku Saya")
+		fmt.Println("5. Lihat Daftar Buku Anda")
+		fmt.Println("6. Hapus Buku Anda")
+		fmt.Println("7. Exit")
+		fmt.Print("Pilih Menu: ")
+		fmt.Scan(&pilih)
+		fmt.Print("\n")
+		switch pilih {
 		case 4:
 			var newBook entity.Books
 			newBook.Id_book = "Book01"
@@ -92,7 +116,10 @@ func main() {
 			fmt.Println("Berhasil Input Data Buku")
 		default:
 			continue
+
+		case 7:
+			fmt.Println("Terimakasih Atas Kunjungannya")
+			menu = false
 		}
 	}
-	fmt.Println("Terima kasih sudah mencoba program saya")
 }

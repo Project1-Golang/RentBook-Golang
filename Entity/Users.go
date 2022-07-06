@@ -100,8 +100,8 @@ func (as *AksesUsers) GetUserPassword(Password string) bool {
 	return true
 }
 
-// func (as *AksesUsers) HapusMurid(IDUsers int) bool {
-// 	postExc := as.DB.Where("ID = ?", IDUsers).Delete(&users{})
+// func (as *AksesUsers) HapusMurid(Id_user int) bool {
+// 	postExc := as.DB.Where("ID = ?", Id_user).Delete(&Users{})
 // 	// ada masalah ga(?)
 // 	if err := postExc.Error; err != nil {
 // 		log.Fatal(err)
