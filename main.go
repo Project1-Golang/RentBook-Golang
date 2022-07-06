@@ -117,14 +117,12 @@ func main() {
 			AksesBook := entity.AksesBook{DB: conn}
 			AksesBook.TambahBukuBaru(newBook)
 			fmt.Println("Berhasil Input Data Buku")
-		
+		default:
+			continue
+
 		case 7:
 			fmt.Println("Terimakasih Atas Kunjungannya")
 			menu = false
 		}
-
-	default:
-		continue
-
 	}
 }
