@@ -10,6 +10,7 @@ type Rent_Book struct {
 	Id_rent_book  string `gorm:"primaryKey;type:varchar(36);"`
 	Owned_by      string
 	Owned_by_book string
+	Is_Returned   bool
 	// Return_date   time.Time
 	// Created_at time.Time `gorm:"autoCreateTime"`
 	// Updated_at time.Time `gorm:"autoCreateTime"`

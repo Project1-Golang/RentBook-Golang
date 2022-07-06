@@ -169,15 +169,13 @@ func main() {
 			var Id_user string
 			ID := AksesUsers.GetSpecificUser(Id_user)
 			newRent.Owned_by = ID.Id_user
-			// newRent.Return_date = nil
+			newRent.Is_Returned = false
 			fmt.Print("Masukkan Id Books: ")
 			fmt.Scan(&newRent.Owned_by_book)
 
 			AksesRent.PinjamBuku(newRent)
 			fmt.Println("Berhasil Pinjam")
-			// AksesBook := entity.AksesBook{DB: conn}
-			// AksesBook.TambahBukuBaru(newBook)
-			// fmt.Println("Berhasil Input Data Buku")
+
 		case 8:
 
 		case 9:
