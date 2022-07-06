@@ -33,7 +33,7 @@ func main() {
 		fmt.Println("2. Log In")
 		fmt.Println("3. Lihat Daftar Buku")
 		fmt.Println("4. Keluar")
-		fmt.Print("Masukkan Pilihan menu: ")
+		fmt.Print("Masukkan Pilihan Menu: ")
 		fmt.Scanln(&input)
 		// fmt.Println("4. Tambah Data Buku")
 
@@ -48,22 +48,22 @@ func main() {
 			newUsers.Status = "1"
 
 			fmt.Println("--- Silahkan Isi Data Anda Untuk Registrasi -----")
-			fmt.Print("Masukkan nama: ")
+			fmt.Print("Masukkan Nama: ")
 			fmt.Scanln(&newUsers.Name)
-			fmt.Print("Masukkan nomorhp: ")
+			fmt.Print("Masukkan Nomor HP: ")
 			fmt.Scanln(&newUsers.Nomer_HP)
-			fmt.Print("Masukkan email: ")
+			fmt.Print("Masukkan Email: ")
 			fmt.Scanln(&newUsers.Email)
-			fmt.Print("Masukkan user_Name: ")
+			fmt.Print("Masukkan User Name: ")
 			fmt.Scanln(&newUsers.User_Name)
-			fmt.Print("Masukkan password: ")
+			fmt.Print("Masukkan Password: ")
 			fmt.Scanln(&newUsers.Password)
-			fmt.Print("Masukkan address: ")
+			fmt.Print("Masukkan Address: ")
 			fmt.Scanln(&newUsers.Address)
 
 			aksesUser := entity.AksesUsers{DB: conn}
 			aksesUser.TambahUserBaru(newUsers)
-			fmt.Println("Berhasil input User")
+			fmt.Println("Berhasil Input User")
 		} else if input == 2 {
 			UserName, Password := Halaman_login()
 			UserAuth := AksesUsers.GetUserName(UserName)
@@ -98,11 +98,31 @@ func main() {
 		fmt.Println("4. Tambah Buku Saya")
 		fmt.Println("5. Lihat Daftar Buku Anda")
 		fmt.Println("6. Hapus Buku Anda")
-		fmt.Println("7. Exit")
+		fmt.Println("7. Pinjam Buku")
+		fmt.Println("8. Exit")
 		fmt.Print("Pilih Menu: ")
 		fmt.Scan(&pilih)
 		fmt.Print("\n")
 		switch pilih {
+		case 1:
+			fmt.Println("----- Info Akun Saya -----")
+			for _, val := range AksesUsers.ReadUserInfo() {
+				fmt.Println("ID: ", val.Id_user)
+				fmt.Println("Nama: ", val.Name)
+				fmt.Println("User Name: ", val.User_Name)
+				fmt.Println("Nomor HP: ", val.Nomer_HP)
+				fmt.Println("Email: ", val.Email)
+				fmt.Println("Address: ", val.Address)
+			}
+
+		case 2:
+
+		case 3:
+			var Id_user int
+			fmt.Print("Masukkan ID yang akan dihapus ")
+			fmt.Scanln(&Id_user)
+			fmt.Println(AksesUsers.HapusUsers(Id_user))
+
 		case 4:
 			var newBook entity.Books
 			var code string
@@ -126,12 +146,19 @@ func main() {
 			AksesBook := entity.AksesBook{DB: conn}
 			AksesBook.TambahBukuBaru(newBook)
 			fmt.Println("Berhasil Input Data Buku")
-		default:
-			continue
+
+		case 5:
+
+		case 6:
 
 		case 7:
+
+		case 8:
 			fmt.Println("Terimakasih Atas Kunjungannya")
 			menu = false
+
+		default:
+			continue
 		}
 	}
 }
