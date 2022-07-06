@@ -40,7 +40,11 @@ func main() {
 		if input == 1 {
 			// var adduser entity.AksesUsers
 			var newUsers entity.Users
-			newUsers.Id_user = "User1"
+
+			var code string
+			JumlahUser := AksesUsers.HitungAllUser()
+			code = strconv.Itoa(JumlahUser)
+			newUsers.Id_user = "User-0" + code
 			newUsers.Status = "1"
 			// newUsers.Deleted_at = nil
 			fmt.Println("--- Silahkan Isi Data Anda Untuk Registrasi -----")

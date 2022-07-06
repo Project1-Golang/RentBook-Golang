@@ -126,3 +126,9 @@ func (as *AksesUsers) ReadUserInfo() []Users {
 
 	return daftarUsers
 }
+
+func (as *AksesUsers) HitungAllUser() int {
+	var jumlah int
+	as.DB.Raw("SELECT count(id_user) as 'jumlah' FROM users").Scan(&jumlah)
+	return jumlah + 1
+}
