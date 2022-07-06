@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"rentbook-golang/db"
 	"rentbook-golang/entity"
 	"strconv"
@@ -49,7 +51,9 @@ func main() {
 			// newUsers.Deleted_at = nil
 			fmt.Println("--- Silahkan Isi Data Anda Untuk Registrasi -----")
 			fmt.Print("Masukkan Nama: ")
-			fmt.Scanln(&newUsers.Name)
+			in := bufio.NewReader(os.Stdin)
+			newUsers.Name, _ = in.ReadString('\n')
+			// fmt.Scanln(&newUsers.Name)
 			fmt.Print("Masukkan Nomor HP: ")
 			fmt.Scanln(&newUsers.Nomer_HP)
 			fmt.Print("Masukkan Email: ")
@@ -99,7 +103,9 @@ func main() {
 		fmt.Println("5. Lihat Daftar Buku Anda")
 		fmt.Println("6. Hapus Buku Anda")
 		fmt.Println("7. Pinjam Buku")
-		fmt.Println("8. Exit")
+		fmt.Println("8. Kembalikan Buku")
+		fmt.Println("9. Lihat Daftar Yang Tersedia")
+		fmt.Println("10. Exit")
 		fmt.Print("Pilih Menu: ")
 		fmt.Scan(&pilih)
 		fmt.Print("\n")
@@ -155,6 +161,10 @@ func main() {
 		case 7:
 
 		case 8:
+
+		case 9:
+
+		case 10:
 			fmt.Println("Terimakasih Atas Kunjungannya")
 			menu = false
 
