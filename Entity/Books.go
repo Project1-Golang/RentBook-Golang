@@ -28,6 +28,7 @@ func (as *AksesBook) GetAllData() []Books {
 	var daftarBook = []Books{}
 	// err := as.DB.Raw("Select * from Books").Scan(&daftarBook)
 	err := as.DB.Find(&daftarBook)
+
 	if err.Error != nil {
 		log.Fatal(err.Statement.SQL.String())
 		return nil
@@ -79,3 +80,16 @@ func (as *AksesBook) HapusBuku(IDBook int) bool {
 	return true
 
 }
+
+func (as *AksesBook) HitungAllBukuAktiv() int {
+	var jumlah int
+	as.DB.Raw("SELECT count(id_book) as 'jumlah' FROM books WHERE rent_status = ?", "1").Scan(&jumlah)
+	return jumlah + 1
+}
+
+//// Get updated records count with `RowsAffected`
+//result := db.Model(User{}).Where("role = ?", "admin").Updates(User{Name: "hello", Age: 18})
+// UPDATE users SET name='hello', age=18 WHERE role = 'admin';
+
+// result.RowsAffected // returns updated records count
+// result.Error

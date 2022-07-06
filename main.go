@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"rentbook-golang/db"
 	"rentbook-golang/entity"
+	"strconv"
 )
 
 func Halaman_login() (string, string) {
@@ -100,7 +101,12 @@ func main() {
 		switch pilih {
 		case 4:
 			var newBook entity.Books
-			newBook.Id_book = "Book01"
+			var code string
+			JumlahBuku := AksesBook.HitungAllBukuAktiv()
+			// fmt.Println(JumlahBuku)
+			code = strconv.Itoa(JumlahBuku)
+
+			newBook.Id_book = "Book-" + code
 
 			newBook.Rent_status = true
 			var Id_user string
