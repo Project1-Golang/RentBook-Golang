@@ -100,19 +100,19 @@ func (as *AksesUsers) GetUserPassword(Password string) bool {
 	return true
 }
 
-// func (as *AksesUsers) HapusMurid(Id_user int) bool {
-// 	postExc := as.DB.Where("ID = ?", Id_user).Delete(&Users{})
-// 	// ada masalah ga(?)
-// 	if err := postExc.Error; err != nil {
-// 		log.Fatal(err)
-// 		return false
-// 	}
-// 	// berapa data yang berubah (?)
-// 	if aff := postExc.RowsAffected; aff < 1 {
-// 		log.Println("Tidak ada data yang dihapus")
-// 		return false
-// 	}
+func (as *AksesUsers) HapusUsers(Id_user int) bool {
+	postExc := as.DB.Where("ID = ?", Id_user).Delete(&Users{})
+	// ada masalah ga(?)
+	if err := postExc.Error; err != nil {
+		log.Fatal(err)
+		return false
+	}
+	// berapa data yang berubah (?)
+	if aff := postExc.RowsAffected; aff < 1 {
+		log.Println("Tidak ada data yang dihapus")
+		return false
+	}
 
-// 	return true
+	return true
 
-// }
+}
