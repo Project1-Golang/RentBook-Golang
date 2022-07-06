@@ -24,6 +24,8 @@ func main() {
 	db.MigrateDB(conn)
 	AksesBook := entity.AksesBook{DB: conn}
 	AksesUsers := entity.AksesUsers{DB: conn}
+	AksesRent := entity.AksesRentBook{DB: conn}
+
 	var menu = false
 	for !menu {
 		var input int = 0
@@ -158,7 +160,24 @@ func main() {
 		case 6:
 
 		case 7:
+			var newRent entity.Rent_Book
+			var code string
+			jumlahdata := AksesRent.HitungAllRentBook()
+			code = strconv.Itoa(jumlahdata)
 
+			newRent.Id_rent_book = "Pinj-0" + code
+			var Id_user string
+			ID := AksesUsers.GetSpecificUser(Id_user)
+			newRent.Owned_by = ID.Id_user
+			// newRent.Return_date = nil
+			fmt.Print("Masukkan Id Books: ")
+			fmt.Scan(&newRent.Owned_by_book)
+
+			AksesRent.PinjamBuku(newRent)
+			fmt.Println("Berhasil Pinjam")
+			// AksesBook := entity.AksesBook{DB: conn}
+			// AksesBook.TambahBukuBaru(newBook)
+			// fmt.Println("Berhasil Input Data Buku")
 		case 8:
 
 		case 9:
