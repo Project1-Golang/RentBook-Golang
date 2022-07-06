@@ -40,9 +40,13 @@ func main() {
 		if input == 1 {
 			// var adduser entity.AksesUsers
 			var newUsers entity.Users
-			newUsers.Id_user = "User1"
+
+			var code string
+			JumlahUser := AksesUsers.HitungAllUser()
+			code = strconv.Itoa(JumlahUser)
+			newUsers.Id_user = "User-0" + code
 			newUsers.Status = "1"
-			// newUsers.Deleted_at = nil
+
 			fmt.Println("--- Silahkan Isi Data Anda Untuk Registrasi -----")
 			fmt.Print("Masukkan nama: ")
 			fmt.Scanln(&newUsers.Name)
@@ -103,7 +107,6 @@ func main() {
 			var newBook entity.Books
 			var code string
 			JumlahBuku := AksesBook.HitungAllBukuAktiv()
-			// fmt.Println(JumlahBuku)
 			code = strconv.Itoa(JumlahBuku)
 
 			newBook.Id_book = "Book-0" + code
