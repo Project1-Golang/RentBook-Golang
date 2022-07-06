@@ -83,7 +83,7 @@ func (as *AksesBook) HapusBuku(IDBook int) bool {
 
 func (as *AksesBook) HitungAllBukuAktiv() int {
 	var jumlah int
-	as.DB.Raw("SELECT count(id_book) as 'jumlah' FROM books WHERE rent_status = ?", "1").Scan(&jumlah)
+	as.DB.Raw("SELECT count(id_book) as 'jumlah' FROM books").Scan(&jumlah)
 	return jumlah + 1
 }
 

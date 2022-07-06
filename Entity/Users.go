@@ -102,12 +102,10 @@ func (as *AksesUsers) GetUserPassword(Password string) bool {
 
 func (as *AksesUsers) HapusUsers(Id_user int) bool {
 	postExc := as.DB.Where("ID = ?", Id_user).Delete(&Users{})
-	// ada masalah ga(?)
 	if err := postExc.Error; err != nil {
 		log.Fatal(err)
 		return false
 	}
-	// berapa data yang berubah (?)
 	if aff := postExc.RowsAffected; aff < 1 {
 		log.Println("Tidak ada data yang dihapus")
 		return false
@@ -115,4 +113,16 @@ func (as *AksesUsers) HapusUsers(Id_user int) bool {
 
 	return true
 
+}
+
+func (as *AksesUsers) ReadUserInfo() []Users {
+	var daftarUsers = []Users{}
+
+	err := as.DB.Find(&daftarUsers)
+	if err.Error != nil {
+		log.Fatal(err.Statement.SQL.String())
+		return nil
+	}
+
+	return daftarUsers
 }
