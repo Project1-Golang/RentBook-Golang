@@ -106,7 +106,7 @@ func main() {
 			// fmt.Println(JumlahBuku)
 			code = strconv.Itoa(JumlahBuku)
 
-			newBook.Id_book = "Book-" + code
+			newBook.Id_book = "Book-0" + code
 
 			newBook.Rent_status = true
 			var Id_user string
