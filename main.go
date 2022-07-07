@@ -315,6 +315,39 @@ func main() {
 			fmt.Println("Berhasil Pinjam")
 
 		case 9: //Kembalikan Buku
+			//tampilan semua peminjaman si user
+			var IDUSER = UserAktif.Id_user
+			daftarBukuPinjam := AksesRent.RentByUser(IDUSER)
+			fmt.Println("*******************************")
+			fmt.Println("--- DAFTAR BUKU PINJAM ---")
+			fmt.Println("*******************************")
+
+			var num int
+			for _, val := range daftarBukuPinjam {
+				num++
+				fmt.Println(num, "ID BUKU :", val.Id_book, "ID RENT:", val.Id_rent_book)
+
+			}
+			//pilih buku yang mau dikembalikan
+			var IDBOOK, IDRENT string
+
+			fmt.Println("Masukkan ID Buku: ")
+			fmt.Scan(&IDBOOK)
+
+			fmt.Println("Masukkan ID RENT:")
+			fmt.Scan(&IDRENT)
+
+			//update returned = true dan return date ke now
+			var newreturn entity.Rent_Book
+
+			newreturn.Is_Returned = true
+			newreturn.Return_date = "null"
+
+			AksesRent.KembalikanBuku(IDRENT, IDBOOK)
+
+			//ubah status buku di tabel buku
+			AksesBook.UpdateStatusBook(IDBOOK, true)
+			fmt.Println("Berhasil dikembalikan")
 
 		case 10: //Lihat Daftar Buku Yang Tersedia
 			fmt.Println("*******************************")

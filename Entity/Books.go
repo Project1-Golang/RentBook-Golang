@@ -126,7 +126,7 @@ func (as *AksesBook) UpdateStatusBook(id string, status bool) string {
 		return "Error"
 	}
 
-	return "status Buku terpinjam"
+	return "Sukses"
 }
 
 func (as *AksesBook) Get_Book_belongto_User(ID string) []Books {
