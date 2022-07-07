@@ -61,7 +61,7 @@ func (as *AksesBook) GetSpecificBuku(UID int) Books {
 	return daftarBook
 }
 
-func (as *AksesBook) HapusBuku(Id_User string, IDBook string) string {
+func (as *AksesBook) HapusBukuSaya(Id_User string, IDBook string) string {
 	postExc := as.DB.Where("Id_book = ?", IDBook).Where("owned_by = ?", Id_User).Delete(&Books{})
 	if err := postExc.Error; err != nil {
 		log.Fatal(err)

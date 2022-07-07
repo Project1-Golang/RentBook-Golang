@@ -26,7 +26,6 @@ func main() {
 	AksesUsers := entity.AksesUsers{DB: conn}
 	AksesRent := entity.AksesRentBook{DB: conn}
 	var UserAktif entity.Users
-	var IDUSER = UserAktif.Id_user
 
 	var menu = false
 	for !menu {
@@ -233,15 +232,23 @@ func main() {
 			// AksesUsers.EditUser(BookUpdate.Id_book, nama)
 
 		case 7: //hapus buku saya
+			var IDUSER = UserAktif.Id_user
+
+			fmt.Println("*******************************")
+			fmt.Println("----- BUKU ANDA -----")
+			fmt.Println("*******************************")
+
+			bukusaya := AksesBook.Get_Book_belongto_User(IDUSER)
+			var no int
+			for _, val := range bukusaya {
+				no++
+				fmt.Println(no, "Judul Buku :", val.Title_book, "ID BUKU :", val.Id_book)
+			}
 			var IDBook string
-			fmt.Println("Masukkan ID Buku Anda : ")
+			fmt.Println("Masukkan ID Buku yang akan Anda Hapus : ")
 			fmt.Scan(&IDBook)
-
-			// var Id_user string //ambil user yang Aktif
-
-			// UserAktif := AksesUsers.GetSpecificUser(Id_user)
-
-			fmt.Println(AksesBook.HapusBuku(IDUSER, IDBook))
+			ID := UserAktif.Id_user
+			fmt.Println(AksesBook.HapusBukuSaya(ID, IDBook))
 
 		case 8: //Pinjam Buku
 			var newRent entity.Rent_Book
