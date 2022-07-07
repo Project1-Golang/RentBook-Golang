@@ -220,16 +220,43 @@ func main() {
 				fmt.Println(no, "Judul Buku :", val.Title_book)
 			}
 
-		case 6:
-			// var Id_book string //ambil user yang Aktif
+		case 6: //update book user
+			var IDUSER = UserAktif.Id_user
+			var IDBOOK string
 
-			// BookUpdate := AksesUsers.UpdateBook(Id_book)
+			fmt.Println("*******************************")
+			fmt.Println("----- BUKU ANDA -----")
+			fmt.Println("*******************************")
 
-			// var nama string
-			// fmt.Print("Masukkan Nama :")
-			// fmt.Scan(&nama)
+			bukusaya := AksesBook.Get_Book_belongto_User(IDUSER)
+			var no int
+			for _, val := range bukusaya {
+				no++
+				fmt.Println(no, "Judul Buku :", val.Title_book, "ID BUKU :", val.Id_book)
+			}
+			fmt.Println("Masukkan ID BUKU ANDA: ")
+			fmt.Scan(&IDBOOK)
+			if IDBOOK != "" {
+				var UpdateBook entity.Books
+				fmt.Println("Masukkan Judul Buku: ")
+				ba := bufio.NewReader(os.Stdin)
+				UpdateBook.Title_book, _ = ba.ReadString('\t')
 
-			// AksesUsers.EditUser(BookUpdate.Id_book, nama)
+				fmt.Println("Masukkan Author: ")
+				bb := bufio.NewReader(os.Stdin)
+				UpdateBook.Author, _ = bb.ReadString('\t')
+
+				fmt.Println("Masukkan ISBN: ")
+				bc := bufio.NewReader(os.Stdin)
+				UpdateBook.Isbn, _ = bc.ReadString('\t')
+
+				AksesBook := entity.AksesBook{DB: conn}
+				AksesBook.UpdateMyBook(IDBOOK, IDUSER, UpdateBook)
+
+				fmt.Println("Buku Berhasil di Update")
+			} else {
+				fmt.Println("Masukkan ID BUKU ANDA")
+			}
 
 		case 7: //hapus buku saya
 			var IDUSER = UserAktif.Id_user

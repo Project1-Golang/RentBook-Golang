@@ -136,3 +136,14 @@ func (as *AksesBook) Get_Book_notbelongto_User(ID string) []Books {
 
 	return daftarUserBook
 }
+func (as *AksesBook) UpdateMyBook(IDBook string, id_user string, NewData Books) string {
+	UpdateExc := as.DB.Model(&Books{}).Where("id_book = ? and owned_by = ?", IDBook, id_user).Updates(NewData)
+	if err := UpdateExc.Error; err != nil {
+		log.Fatal(err)
+		return "Error"
+	}
+	if aff := UpdateExc.RowsAffected; aff < 1 {
+		return "Error"
+	}
+	return "Update Buku Berhasil"
+}
