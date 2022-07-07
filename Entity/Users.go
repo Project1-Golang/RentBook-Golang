@@ -115,17 +115,18 @@ func (as *AksesUsers) HapusUsers(Id_user int) bool {
 
 }
 
-func (as *AksesUsers) ReadUserInfo() []Users {
-	var daftarUsers = []Users{}
+// func (as *AksesUsers) ReadUserInfo(Id_user string) Users {
+// 	var daftarUsers = Users{}
+// 	// err := as.DB.Where("Id_user", Id_user).First(&daftarUsers)
+// 	// err := as.DB.Find(&daftarUsers)
+// 	err := as.DB.Select("Id_user", "Name", "Nomer_HP", "User_Name", "Address", "Email").Where("Id_user = ?", Id_user).Limit(1).Find(&daftarUsers)
+// 	if err.Error != nil {
+// 		log.Fatal(err.Statement.SQL.String())
+// 		return nil
+// 	}
 
-	err := as.DB.Find(&daftarUsers)
-	if err.Error != nil {
-		log.Fatal(err.Statement.SQL.String())
-		return nil
-	}
-
-	return daftarUsers
-}
+// 	return daftarUsers
+// }
 
 func (as *AksesUsers) HitungAllUser() int {
 	var jumlah int

@@ -29,9 +29,9 @@ func main() {
 	var menu = false
 	for !menu {
 		var input int = 0
-		fmt.Println("===============================")
-		fmt.Println("* Selamat Datang Perpustakaan *")
-		fmt.Println("===============================")
+		fmt.Println("===============================\t")
+		fmt.Println("* Selamat Datang Perpustakaan *\t")
+		fmt.Println("===============================\t")
 		fmt.Println("Silahkan Pilih Menu:")
 		fmt.Println("1. Register")
 		fmt.Println("2. Log In")
@@ -65,7 +65,9 @@ func main() {
 			fmt.Print("Masukkan Password: ")
 			fmt.Scanln(&newUsers.Password)
 			fmt.Print("Masukkan Address: ")
-			fmt.Scanln(&newUsers.Address)
+			en := bufio.NewReader(os.Stdin)
+			newUsers.Address, _ = en.ReadString('\n')
+			// fmt.Scanln(&newUsers.Address)
 
 			aksesUser := entity.AksesUsers{DB: conn}
 			aksesUser.TambahUserBaru(newUsers)
@@ -113,15 +115,15 @@ func main() {
 		fmt.Print("\n")
 		switch pilih {
 		case 1:
-			fmt.Println("----- Info Akun Saya -----")
-			for _, val := range AksesUsers.ReadUserInfo() {
-				fmt.Println("ID: ", val.Id_user)
-				fmt.Println("Nama: ", val.Name)
-				fmt.Println("User Name: ", val.User_Name)
-				fmt.Println("Nomor HP: ", val.Nomer_HP)
-				fmt.Println("Email: ", val.Email)
-				fmt.Println("Address: ", val.Address)
-			}
+			// fmt.Println("----- Info Akun Saya -----")
+			// for _, val := range AksesUsers.ReadUserInfo() {
+			// 	fmt.Println("ID: ", val.Id_user)
+			// 	fmt.Println("Nama: ", val.Name)
+			// 	fmt.Println("Nomor HP: ", val.Nomer_HP)
+			// 	fmt.Println("User Name: ", val.User_Name)
+			// 	fmt.Println("Address: ", val.Address)
+			// 	fmt.Println("Email: ", val.Email)
+			// }
 
 		case 2:
 
@@ -145,11 +147,19 @@ func main() {
 			newBook.Owned_by = ID.Id_user
 
 			fmt.Print("Masukkan Judul Buku: ")
-			fmt.Scan(&newBook.Title_book)
+			ba := bufio.NewReader(os.Stdin)
+			newBook.Title_book, _ = ba.ReadString('\n')
+			// fmt.Scan(&newBook.Title_book)
+
 			fmt.Print("Masukkan Author: ")
-			fmt.Scan(&newBook.Author)
+			bb := bufio.NewReader(os.Stdin)
+			newBook.Author, _ = bb.ReadString('\n')
+			// fmt.Scan(&newBook.Author)
+
 			fmt.Print("Masukkan ISBN: ")
-			fmt.Scan(&newBook.Isbn)
+			bc := bufio.NewReader(os.Stdin)
+			newBook.Isbn, _ = bc.ReadString('\n')
+			// fmt.Scan(&newBook.Isbn)
 
 			AksesBook := entity.AksesBook{DB: conn}
 			AksesBook.TambahBukuBaru(newBook)
@@ -183,9 +193,6 @@ func main() {
 		case 10:
 			fmt.Println("Terimakasih Atas Kunjungannya")
 			menu = false
-
-		default:
-			continue
 		}
 	}
 }
