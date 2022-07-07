@@ -146,20 +146,17 @@ func main() {
 			ID := AksesUsers.GetSpecificUser(Id_user)
 			newBook.Owned_by = ID.Id_user
 
-			fmt.Print("Masukkan Judul Buku: ")
+			fmt.Println("Masukkan Judul Buku: ")
 			ba := bufio.NewReader(os.Stdin)
-			newBook.Title_book, _ = ba.ReadString('\n')
-			// fmt.Scan(&newBook.Title_book)
+			newBook.Title_book, _ = ba.ReadString('\t')
 
-			fmt.Print("Masukkan Author: ")
+			fmt.Println("Masukkan Author: ")
 			bb := bufio.NewReader(os.Stdin)
-			newBook.Author, _ = bb.ReadString('\n')
-			// fmt.Scan(&newBook.Author)
+			newBook.Author, _ = bb.ReadString('\t')
 
-			fmt.Print("Masukkan ISBN: ")
+			fmt.Println("Masukkan ISBN: ")
 			bc := bufio.NewReader(os.Stdin)
-			newBook.Isbn, _ = bc.ReadString('\n')
-			// fmt.Scan(&newBook.Isbn)
+			newBook.Isbn, _ = bc.ReadString('\t')
 
 			AksesBook := entity.AksesBook{DB: conn}
 			AksesBook.TambahBukuBaru(newBook)
