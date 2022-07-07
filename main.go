@@ -26,6 +26,8 @@ func main() {
 	AksesUsers := entity.AksesUsers{DB: conn}
 	AksesRent := entity.AksesRentBook{DB: conn}
 	var UserAktif entity.Users
+	var IDUSER = UserAktif.Id_user
+
 	var menu = false
 	for !menu {
 		var input int = 0
@@ -114,21 +116,20 @@ func main() {
 		fmt.Print("\n")
 		switch pilih {
 		case 1: //liat Akun
-			fmt.Println("----- Info Akun Saya -----")
-			for _, val := range AksesUsers.ReadUserInfo() {
-				fmt.Println("ID: ", val.Id_user)
-				fmt.Println("Nama: ", val.Name)
-				fmt.Println("Nomor HP: ", val.Nomer_HP)
-				fmt.Println("User Name: ", val.User_Name)
-				fmt.Println("Address: ", val.Address)
-				fmt.Println("Email: ", val.Email)
-			}
+			// fmt.Println("----- Info Akun Saya -----")
+			// for _, val := range AksesUsers.ReadUserInfo() {
+			// 	fmt.Println("ID: ", val.Id_user)
+			// 	fmt.Println("Nama: ", val.Name)
+			// 	fmt.Println("Nomor HP: ", val.Nomer_HP)
+			// 	fmt.Println("User Name: ", val.User_Name)
+			// 	fmt.Println("Address: ", val.Address)
+			// 	fmt.Println("Email: ", val.Email)
+			// }
 
 		case 2: //update user
 
-			var Id_user string //ambil user yang Aktif
-
-			UserAktif := AksesUsers.GetSpecificUser(Id_user)
+			// var Id_user string //ambil user yang Aktif
+			fmt.Println(IDUSER)
 
 			var nama string
 			fmt.Print("Masukkan Nama :")
@@ -142,7 +143,7 @@ func main() {
 			// fmt.Scanln(&User_Name)
 			// fmt.Print("Masukkan Password: ")
 			// fmt.Scanln(&Password)
-			AksesUsers.EditUser(UserAktif.Id_user, nama)
+			// AksesUsers.EditUser(UserAktif.Id_user, nama)
 			// AksesUsers.EditUser(UserAktif.Id_user, nama, Nomer_HP, Email, User_Name, Password)
 			// //input data
 			// var UserEdit entity.Users
@@ -178,7 +179,7 @@ func main() {
 			fmt.Scan(&option)
 			if option == 1 {
 				fmt.Println("Hapus Akun")
-				fmt.Println(AksesUsers.HapusUsers(UserAktif.Id_user))
+				fmt.Println(AksesUsers.HapusUsers(IDUSER))
 				fmt.Println("....................")
 				fmt.Println("Akun Anda Sudah dihapus")
 				fmt.Println("Terimakasih Atas Kunjungannya")
@@ -196,10 +197,7 @@ func main() {
 			newBook.Id_book = "Book-0" + code
 			newBook.Rent_status = true
 
-			var Id_user string //ambil user yang Aktif
-			ID := AksesUsers.GetSpecificUser(Id_user)
-
-			newBook.Owned_by = ID.Id_user
+			newBook.Owned_by = IDUSER
 
 			fmt.Println("Masukkan Judul Buku: ")
 			ba := bufio.NewReader(os.Stdin)
@@ -235,22 +233,23 @@ func main() {
 			fmt.Println("Masukkan ID Buku Anda : ")
 			fmt.Scan(&IDBook)
 
-			var Id_user string //ambil user yang Aktif
+			// var Id_user string //ambil user yang Aktif
 
-			UserAktif := AksesUsers.GetSpecificUser(Id_user)
+			// UserAktif := AksesUsers.GetSpecificUser(Id_user)
 
-			fmt.Println(AksesBook.HapusBuku(UserAktif.Id_user, IDBook))
+			fmt.Println(AksesBook.HapusBuku(IDUSER, IDBook))
 
-		case 8:
+		case 8: //Pinjam Buku
 			var newRent entity.Rent_Book
 			var code string
 			jumlahdata := AksesRent.HitungAllRentBook()
 			code = strconv.Itoa(jumlahdata)
 
 			newRent.Id_rent_book = "Pinj-0" + code
-			var id string
-			ID := AksesUsers.GetSpecificUser(id)
-			newRent.Owned_by = ID.Id_user
+			// var id string
+			ID := UserAktif.Id_user
+			newRent.Owned_by = ID
+
 			newRent.Is_Returned = false
 			fmt.Print("Masukkan Id Books: ")
 			fmt.Scan(&newRent.Owned_by_book)
@@ -258,17 +257,17 @@ func main() {
 			AksesRent.PinjamBuku(newRent)
 			fmt.Println("Berhasil Pinjam")
 
-		case 9:
+		case 9: //Kembalikan Buku
 
-		case 10:
+		case 10: //Lihat Daftar Buku Yang Tersedia
 			fmt.Println("Daftar Buku Yang Ada")
 			for _, val := range AksesBook.GetAllData() {
 				fmt.Println(val.Id_book, val.Title_book, val.Author)
 			}
 
-		case 11:
+		case 11: //Exit
 			fmt.Println("Terimakasih Atas Kunjungannya")
-			UserAktif = entity.Users{} // Edit Mas Jerry
+			UserAktif = entity.Users{} //Session deleted
 			menu = false
 		}
 	}

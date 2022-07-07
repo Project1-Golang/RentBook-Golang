@@ -10,7 +10,7 @@ import (
 type Books struct {
 	Id_book     string `gorm:"primaryKey;type:varchar(36);"`
 	Owned_by    string
-	Rent_Book   []Rent_Book `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Rent_Book   []Rent_Book `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE, OnDelete:SET NULL;"`
 	Title_book  string
 	Isbn        string
 	Author      string

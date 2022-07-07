@@ -2,6 +2,7 @@ package entity
 
 import (
 	"log"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -11,10 +12,10 @@ type Rent_Book struct {
 	Owned_by      string
 	Owned_by_book string
 	Is_Returned   bool
-	// Return_date   time.Time
-	// Created_at time.Time `gorm:"autoCreateTime"`
-	// Updated_at time.Time `gorm:"autoCreateTime"`
-	// Deleted_at time.Time `gorm:"index"`
+	Return_date   time.Time
+	Created_at    time.Time `gorm:"autoCreateTime"`
+	Updated_at    time.Time `gorm:"autoCreateTime"`
+	Deleted_at    time.Time `gorm:"index"`
 }
 
 type AksesRentBook struct {
