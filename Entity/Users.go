@@ -133,3 +133,34 @@ func (as *AksesUsers) HitungAllUser() int {
 	as.DB.Raw("SELECT count(id_user) as 'jumlah' FROM users").Scan(&jumlah)
 	return jumlah + 1
 }
+
+func (as *AksesUsers) UpdateUser(id string, UpdateNama string) bool {
+	UpdateExc := as.DB.Model(&Users{}).Where("Id_user = ?", id).Update("Name", UpdateNama)
+	if err := UpdateExc.Error; err != nil {
+		log.Fatal(err)
+		return false
+	}
+	if aff := UpdateExc.RowsAffected; aff < 1 {
+		log.Println("Tidak ada data yang dihapus")
+		return false
+	}
+
+	return true
+
+}
+
+/*
+Id_user    string      `gorm:"primaryKey;type:varchar(36);"`
+	Books      []Books     `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Rent_Book  []Rent_Book `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Name       string
+	Status     string
+	Nomer_HP   string
+	Email      string `gorm:"unique"`
+	User_Name  string `gorm:"unique"`
+	Password   string
+	Address    string
+	Created_at time.Time `gorm:"autoCreateTime"`
+	Updated_at time.Time `gorm:"autoCreateTime"`
+
+*/

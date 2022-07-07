@@ -127,6 +127,19 @@ func main() {
 			// }
 
 		case 2:
+			var id string
+			id = "User-01"
+			// var NamaBaru string
+			// var UpdateNama string
+			fmt.Println("---- Update Nama Anda ---")
+			fmt.Println("New Name: ")
+			// fmt.Scanln(&UpdateNama)
+			res := AksesUsers.UpdateUser(id, "Tom")
+			if res {
+				fmt.Println("Data Berhasil Diperbarui")
+			} else {
+				fmt.Println("Data Gagal Diperbarui")
+			}
 
 		case 3:
 			var id string
