@@ -65,19 +65,19 @@ func (as *AksesBook) GetSpecificBuku(UID int) Books {
 	return daftarBook
 }
 
-func (as *AksesBook) HapusBuku(IDBook string) bool {
-	postExc := as.DB.Where("Id_book = ?", IDBook).Delete(&Books{})
+func (as *AksesBook) HapusBuku(Id_User string, IDBook string) string {
+	postExc := as.DB.Where("Id_book = ?", IDBook).Where("owned_by = ?", Id_User).Delete(&Books{})
 	if err := postExc.Error; err != nil {
 		log.Fatal(err)
-		return false
+		return "Delete My Book Error"
 	}
 	// berapa data yang berubah (?)
 	if aff := postExc.RowsAffected; aff < 1 {
 		log.Println("Tidak ada data yang dihapus")
-		return false
+		return "Delete My Book Error"
 	}
 
-	return true
+	return "Anda Telah Berhasil menghapus Buku"
 
 }
 

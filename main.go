@@ -183,12 +183,16 @@ func main() {
 
 		case 6:
 
-		case 7:
+		case 7: //hapus buku saya
 			var IDBook string
-			IDBook = "Book-02"
-			fmt.Print("Masukkan ID yang akan dihapus ")
-			fmt.Scanln(&IDBook)
-			fmt.Println(AksesBook.HapusBuku(IDBook))
+			fmt.Println("Masukkan ID Buku Anda : ")
+			fmt.Scan(&IDBook)
+
+			var Id_user string //ambil user yang Aktif
+
+			UserAktif := AksesUsers.GetSpecificUser(Id_user)
+
+			fmt.Println(AksesBook.HapusBuku(UserAktif.Id_user, IDBook))
 
 		case 8:
 			var newRent entity.Rent_Book
