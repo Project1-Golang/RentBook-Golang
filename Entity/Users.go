@@ -164,3 +164,24 @@ func (as *AksesUsers) EditUser(id string, nama string, NewData Users) string {
 
 	return "Sukses"
 }
+
+func (as *AksesUsers) GetSingleUser(id string) Users {
+	var infouser = Users{}
+	err := as.DB.Where("id_user = ?", id).First(&infouser)
+	if err.Error != nil {
+		log.Fatal(err.Statement.SQL.String())
+		return Users{}
+	}
+	return infouser
+}
+
+// func (as *AksesUsers) GetSpecificUser(User_Name, Password string) Users { // Edit Mas Jerry
+// 	var daftarUsers = Users{}
+// 	err := as.DB.Where("user_name = ? and password = ?", User_Name, Password).First(&daftarUsers)
+// 	if err.Error != nil {
+// 		log.Fatal(err.Statement.SQL.String())
+// 		return Users{}
+// 	}
+
+// 	return daftarUsers
+// }

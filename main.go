@@ -94,7 +94,6 @@ func main() {
 				no++
 				fmt.Println("No :", no)
 				fmt.Println("ID :", val.Id_book)
-				strings.tr
 				fmt.Println("Judul :", val.Title_book)
 				fmt.Println("Penulis :", val.Author)
 			}
@@ -124,16 +123,17 @@ func main() {
 		fmt.Print("\n")
 		switch pilih {
 		case 1: //liat Akun
-			// fmt.Println("----- Info Akun Saya -----")
-			// for _, val := range AksesUsers.ReadUserInfo() {
-			// 	fmt.Println("ID: ", val.Id_user)
-			// 	fmt.Println("Nama: ", val.Name)
-			// 	fmt.Println("Nomor HP: ", val.Nomer_HP)
-			// 	fmt.Println("User Name: ", val.User_Name)
-			// 	fmt.Println("Address: ", val.Address)
-			// 	fmt.Println("Email: ", val.Email)
-			// }
+			var IDUSER = UserAktif.Id_user
+			userinfo := AksesUsers.GetSingleUser(IDUSER)
 
+			fmt.Println("*******************************")
+			fmt.Println("----- Info Akun Saya -----")
+			fmt.Println("*******************************")
+			fmt.Println("Nama : ", userinfo.Name)
+			fmt.Println("Nomor Hp : ", userinfo.Nomer_HP)
+			fmt.Println("User Name : ", userinfo.User_Name)
+			fmt.Println("Email : ", userinfo.Email)
+			fmt.Println("Alamat : ", userinfo.Address)
 		case 2: //update user
 
 			// var Id_user string //ambil user yang Aktif
