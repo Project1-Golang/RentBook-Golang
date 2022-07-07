@@ -105,7 +105,7 @@ func main() {
 		fmt.Println("7. Hapus Buku Anda")
 		fmt.Println("8. Pinjam Buku")
 		fmt.Println("9. Kembalikan Buku")
-		fmt.Println("10. Lihat Daftar Yang Tersedia")
+		fmt.Println("10. Lihat Daftar Buku Yang Tersedia")
 		fmt.Println("11. Exit")
 		fmt.Print("Pilih Menu: ")
 		fmt.Scan(&pilih)
@@ -138,16 +138,24 @@ func main() {
 			}
 
 		case 3: //Hapus Akun
+			var option int
 			var Id_user string //ambil user yang Aktif
 			UserAktif := AksesUsers.GetSpecificUser(Id_user)
 			// fmt.Println(UserAktif.Id_user)
-
-			fmt.Println("Hapus Akun")
-			fmt.Println(AksesUsers.HapusUsers(UserAktif.Id_user))
-			fmt.Println("....................")
-			fmt.Println("Akun Anda Sudah dihapus")
-			fmt.Println("Terimakasih Atas Kunjungannya")
-			menu = false
+			fmt.Println("Apakah Anda Yakin Akan Menghapus Akun Anda?")
+			fmt.Println("1. Ya")
+			fmt.Println("2. Tidak")
+			fmt.Scan(&option)
+			if option == 1 {
+				fmt.Println("Hapus Akun")
+				fmt.Println(AksesUsers.HapusUsers(UserAktif.Id_user))
+				fmt.Println("....................")
+				fmt.Println("Akun Anda Sudah dihapus")
+				fmt.Println("Terimakasih Atas Kunjungannya")
+				menu = false
+			} else {
+				menu = true
+			}
 
 		case 4: //Tambah Buku Saya
 			var newBook entity.Books
