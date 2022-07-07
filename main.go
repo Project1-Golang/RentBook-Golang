@@ -197,8 +197,9 @@ func main() {
 			newBook.Id_book = "Book-0" + code
 			newBook.Rent_status = true
 
-			newBook.Owned_by = IDUSER
+			var IDUSER = UserAktif.Id_user
 
+			newBook.Owned_by = IDUSER
 			fmt.Println("Masukkan Judul Buku: ")
 			ba := bufio.NewReader(os.Stdin)
 			newBook.Title_book, _ = ba.ReadString('\t')

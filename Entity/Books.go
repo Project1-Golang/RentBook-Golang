@@ -16,7 +16,7 @@ type Books struct {
 	Author      string
 	Rent_status bool
 	Created_at  time.Time `gorm:"autoCreateTime"`
-	Apdated_at  time.Time `gorm:"autoCreateTime"`
+	Updated_at  time.Time `gorm:"autoCreateTime"`
 	// Deleted_at  time.Time `gorm:"index"`
 }
 
@@ -38,11 +38,7 @@ func (as *AksesBook) GetAllData() []Books {
 }
 
 func (as *AksesBook) TambahBukuBaru(newBook Books) Books {
-	// if newBook.name == "Harry Potter" {
-	// 	newBook.id = uint(1)
-	// }
-	// uid := uuid.New()
-	// books.id = uid.String()
+
 	err := as.DB.Create(&newBook).Error
 	if err != nil {
 		log.Println(err)
