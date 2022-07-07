@@ -151,7 +151,7 @@ func (as *AksesUsers) UpdateUser(ID string, nama string, nohp string, email stri
 	return "success"
 }
 
-func (as *AksesUsers) EditUser(id string, nama string, NewData Users) string {
+func (as *AksesUsers) EditUser(id string, NewData Users) string {
 
 	UpdateExc := as.DB.Model(&Users{}).Where("id_user = ?", id).Updates(NewData)
 	if err := UpdateExc.Error; err != nil {
