@@ -207,7 +207,19 @@ func main() {
 			AksesBook.TambahBukuBaru(newBook)
 			fmt.Println("Berhasil Input Data Buku")
 
-		case 5:
+		case 5: //daftar buku Saya
+			var IDUSER = UserAktif.Id_user
+
+			fmt.Println("*******************************")
+			fmt.Println("----- BUKU SAYA -----")
+			fmt.Println("*******************************")
+
+			bukusaya := AksesBook.Get_Book_belongto_User(IDUSER)
+			var no int
+			for _, val := range bukusaya {
+				no++
+				fmt.Println(no, "Judul Buku :", val.Title_book)
+			}
 
 		case 6:
 			// var Id_book string //ambil user yang Aktif
