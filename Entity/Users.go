@@ -9,8 +9,8 @@ import (
 
 type Users struct {
 	Id_user    string      `gorm:"primaryKey;type:varchar(36);"`
-	Books      []Books     `gorm:"foreignKey:owned_by"`
-	Rent_Book  []Rent_Book `gorm:"foreignKey:owned_by"`
+	Books      []Books     `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Rent_Book  []Rent_Book `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	Name       string
 	Status     string
 	Nomer_HP   string
@@ -100,8 +100,8 @@ func (as *AksesUsers) GetUserPassword(Password string) bool {
 	return true
 }
 
-func (as *AksesUsers) HapusUsers(Id_user string) bool {
-	postExc := as.DB.Where("Id_user = ?", Id_user).Delete(&Users{})
+func (as *AksesUsers) HapusUsers(id string) bool {
+	postExc := as.DB.Where("Id_user = ?", id).Delete(&Users{})
 	if err := postExc.Error; err != nil {
 		log.Fatal(err)
 		return false

@@ -128,10 +128,11 @@ func main() {
 		case 2:
 
 		case 3:
-			var Id_user string
+			var id string
+			id = "User-01"
 			fmt.Print("Masukkan ID yang akan dihapus ")
-			fmt.Scanln(&Id_user)
-			fmt.Println(AksesUsers.HapusUsers(Id_user))
+			fmt.Scanln(&id)
+			fmt.Println(AksesUsers.HapusUsers(id))
 
 		case 4:
 			var newBook entity.Books
@@ -165,6 +166,11 @@ func main() {
 		case 5:
 
 		case 6:
+			var IDBook string
+			IDBook = "Book-02"
+			fmt.Print("Masukkan ID yang akan dihapus ")
+			fmt.Scanln(&IDBook)
+			fmt.Println(AksesBook.HapusBuku(IDBook))
 
 		case 7:
 			var newRent entity.Rent_Book
@@ -173,8 +179,8 @@ func main() {
 			code = strconv.Itoa(jumlahdata)
 
 			newRent.Id_rent_book = "Pinj-0" + code
-			var Id_user string
-			ID := AksesUsers.GetSpecificUser(Id_user)
+			var id string
+			ID := AksesUsers.GetSpecificUser(id)
 			newRent.Owned_by = ID.Id_user
 			newRent.Is_Returned = false
 			fmt.Print("Masukkan Id Books: ")

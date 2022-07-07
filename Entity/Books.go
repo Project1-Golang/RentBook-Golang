@@ -10,7 +10,7 @@ import (
 type Books struct {
 	Id_book     string `gorm:"primaryKey;type:varchar(36);"`
 	Owned_by    string
-	Rent_Book   []Rent_Book `gorm:"foreignKey:Owned_by_book"`
+	Rent_Book   []Rent_Book `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	Title_book  string
 	Isbn        string
 	Author      string
@@ -65,8 +65,8 @@ func (as *AksesBook) GetSpecificBuku(UID int) Books {
 	return daftarBook
 }
 
-func (as *AksesBook) HapusBuku(IDBook int) bool {
-	postExc := as.DB.Where("ID = ?", IDBook).Delete(&Books{})
+func (as *AksesBook) HapusBuku(IDBook string) bool {
+	postExc := as.DB.Where("Id_book = ?", IDBook).Delete(&Books{})
 	if err := postExc.Error; err != nil {
 		log.Fatal(err)
 		return false
