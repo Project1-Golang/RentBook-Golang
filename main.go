@@ -123,14 +123,31 @@ func main() {
 			// }
 
 		case 2: //update user
-			var id string
-			id = "User-01"
-			// var NamaBaru string
-			// var UpdateNama string
-			fmt.Println("---- Update Nama Anda ---")
-			fmt.Println("New Name: ")
+
+			var Id_user string //ambil user yang Aktif
+			UserAktif := AksesUsers.GetSpecificUser(Id_user)
+			fmt.Println(UserAktif.Id_user)
+
+			//input data
+			var UserEdit entity.Users
+			fmt.Println("--- Silahkan Perbaharui Data Anda -----")
+			fmt.Print("Masukkan Nama: ")
+			in := bufio.NewReader(os.Stdin)
+			UserEdit.Name, _ = in.ReadString('\n')
+			fmt.Print("Masukkan Nomor HP: ")
+			fmt.Scanln(&UserEdit.Nomer_HP)
+			fmt.Print("Masukkan Email: ")
+			fmt.Scanln(&UserEdit.Email)
+			fmt.Print("Masukkan User Name: ")
+			fmt.Scanln(&UserEdit.User_Name)
+			fmt.Print("Masukkan Password: ")
+			fmt.Scanln(&UserEdit.Password)
+			fmt.Print("Masukkan Address: ")
+			en := bufio.NewReader(os.Stdin)
+			UserEdit.Address, _ = en.ReadString('\n')
+
 			// fmt.Scanln(&UpdateNama)
-			res := AksesUsers.UpdateUser(id, "Tom")
+			res := AksesUsers.UpdateUser(Id_user, "Tom")
 			if res {
 				fmt.Println("Data Berhasil Diperbarui")
 			} else {
@@ -140,7 +157,6 @@ func main() {
 		case 3: //Hapus Akun
 			var Id_user string //ambil user yang Aktif
 			UserAktif := AksesUsers.GetSpecificUser(Id_user)
-			// fmt.Println(UserAktif.Id_user)
 
 			fmt.Println("Hapus Akun")
 			fmt.Println(AksesUsers.HapusUsers(UserAktif.Id_user))
