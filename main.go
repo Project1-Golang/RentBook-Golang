@@ -25,7 +25,7 @@ func main() {
 	AksesBook := entity.AksesBook{DB: conn}
 	AksesUsers := entity.AksesUsers{DB: conn}
 	AksesRent := entity.AksesRentBook{DB: conn}
-
+	// var idUser string
 	var menu = false
 	for !menu {
 		var input int = 0
@@ -128,7 +128,7 @@ func main() {
 		case 2:
 
 		case 3:
-			var Id_user int
+			var Id_user string
 			fmt.Print("Masukkan ID yang akan dihapus ")
 			fmt.Scanln(&Id_user)
 			fmt.Println(AksesUsers.HapusUsers(Id_user))
