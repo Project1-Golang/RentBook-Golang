@@ -8,14 +8,16 @@ import (
 )
 
 type Rent_Book struct {
-	Id_rent_book  string `gorm:"primaryKey;type:varchar(36);"`
-	Owned_by      string
-	Owned_by_book string
-	Is_Returned   bool
-	Return_date   time.Time
-	Created_at    time.Time `gorm:"autoCreateTime"`
-	Updated_at    time.Time `gorm:"autoCreateTime"`
-	Deleted_at    time.Time `gorm:"index"`
+	Id_rent_book string `gorm:"primaryKey;type:varchar(36);"`
+	// Owned_by      string
+	// Owned_by_book string
+	Id_User     string
+	Id_book     string
+	Is_Returned bool
+	Return_date string
+	Created_at  time.Time `gorm:"autoCreateTime"`
+	Updated_at  time.Time `gorm:"autoCreateTime"`
+	// Deleted_at    time.Time `gorm:"index"`
 }
 
 type AksesRentBook struct {
