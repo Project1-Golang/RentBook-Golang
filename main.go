@@ -264,11 +264,31 @@ func main() {
 		case 9: //Kembalikan Buku
 
 		case 10: //Lihat Daftar Buku Yang Tersedia
-			fmt.Println("Daftar Buku Yang Ada")
+			fmt.Println("*******************************")
+			fmt.Println("--- DAFTAR SEMUA BUKU ---")
+			fmt.Println("*******************************")
+
+			var no int
 			for _, val := range AksesBook.GetAllData() {
-				fmt.Println(val.Id_book, val.Title_book, val.Author)
+				if val.Rent_status {
+					no++
+					fmt.Println(no, "Judul Buku :", val.Title_book, "Penulis :", val.Author)
+				}
+
 			}
 
+			fmt.Println("*******************************")
+			fmt.Println("--- DAFTAR BUKU YANG BISA ANDA PINJAM ---")
+			fmt.Println("*******************************")
+			ID := UserAktif.Id_user
+			daftarBukuRent := AksesBook.Get_Book_notbelongto_User(ID)
+			var num int
+			for _, val := range daftarBukuRent {
+				if val.Rent_status {
+					num++
+					fmt.Println(num, "Judul Buku :", val.Title_book)
+				}
+			}
 		case 11: //Exit
 			fmt.Println("Terimakasih Atas Kunjungannya")
 			UserAktif = entity.Users{} //Session deleted

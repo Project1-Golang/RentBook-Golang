@@ -126,15 +126,13 @@ func (as *AksesBook) Get_Book_belongto_User(ID string) []Books {
 	return daftarUserBook
 }
 
-// func (as *AksesUsers) ReadUserInfo(Id_user string) Users {
-// 	var daftarUsers = Users{}
-// 	// err := as.DB.Where("Id_user", Id_user).First(&daftarUsers)
-// 	// err := as.DB.Find(&daftarUsers)
-// 	err := as.DB.Select("Id_user", "Name", "Nomer_HP", "User_Name", "Address", "Email").Where("Id_user = ?", Id_user).Limit(1).Find(&daftarUsers)
-// 	if err.Error != nil {
-// 		log.Fatal(err.Statement.SQL.String())
-// 		// return nil
-// 	}
+func (as *AksesBook) Get_Book_notbelongto_User(ID string) []Books {
+	var daftarUserBook = []Books{}
+	err := as.DB.Where("owned_by != ?", ID).Find(&daftarUserBook)
+	if err.Error != nil {
+		log.Fatal(err.Statement.SQL.String())
+		return nil
+	}
 
-// 	return daftarUsers
-// }
+	return daftarUserBook
+}
