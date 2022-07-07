@@ -105,7 +105,7 @@ func main() {
 		fmt.Println("7. Hapus Buku Anda")
 		fmt.Println("8. Pinjam Buku")
 		fmt.Println("9. Kembalikan Buku")
-		fmt.Println("10. Lihat Daftar Yang Tersedia")
+		fmt.Println("10. Lihat Daftar Buku Yang Tersedia")
 		fmt.Println("11. Exit")
 		fmt.Print("Pilih Menu: ")
 		fmt.Scan(&pilih)
@@ -125,45 +125,64 @@ func main() {
 		case 2: //update user
 
 			var Id_user string //ambil user yang Aktif
+
 			UserAktif := AksesUsers.GetSpecificUser(Id_user)
-			fmt.Println(UserAktif.Id_user)
 
-			//input data
-			var UserEdit entity.Users
-			fmt.Println("--- Silahkan Perbaharui Data Anda -----")
-			fmt.Print("Masukkan Nama: ")
-			in := bufio.NewReader(os.Stdin)
-			UserEdit.Name, _ = in.ReadString('\n')
-			fmt.Print("Masukkan Nomor HP: ")
-			fmt.Scanln(&UserEdit.Nomer_HP)
-			fmt.Print("Masukkan Email: ")
-			fmt.Scanln(&UserEdit.Email)
-			fmt.Print("Masukkan User Name: ")
-			fmt.Scanln(&UserEdit.User_Name)
-			fmt.Print("Masukkan Password: ")
-			fmt.Scanln(&UserEdit.Password)
-			fmt.Print("Masukkan Address: ")
-			en := bufio.NewReader(os.Stdin)
-			UserEdit.Address, _ = en.ReadString('\n')
+			var nama string
+			fmt.Print("Masukkan Nama :")
+			fmt.Scan(&nama)
+			fmt.Println(nama)
+			AksesUsers.EditUser(UserAktif.Id_user, nama)
+			// //input data
+			// var UserEdit entity.Users
+			// UserEdit.Id_user = UserAktif.Id_user
+			// fmt.Println("--- Silahkan Perbaharui Data Anda -----")
+			// fmt.Print("Masukkan Nama: ")
+			// in := bufio.NewReader(os.Stdin)
+			// UserEdit.Name, _ = in.ReadString('\n')
+			// fmt.Print("Masukkan Nomor HP: ")
+			// fmt.Scanln(&UserEdit.Nomer_HP)
+			// fmt.Print("Masukkan Email: ")
+			// fmt.Scanln(&UserEdit.Email)
+			// fmt.Print("Masukkan User Name: ")
+			// fmt.Scanln(&UserEdit.User_Name)
+			// fmt.Print("Masukkan Password: ")
+			// fmt.Scanln(&UserEdit.Password)
+			// fmt.Print("Masukkan Address: ")
+			// en := bufio.NewReader(os.Stdin)
+			// UserEdit.Address, _ = en.ReadString('\n')
 
-			// fmt.Scanln(&UpdateNama)
-			res := AksesUsers.UpdateUser(Id_user, "Tom")
-			if res {
-				fmt.Println("Data Berhasil Diperbarui")
-			} else {
-				fmt.Println("Data Gagal Diperbarui")
-			}
+			// aksesUser := entity.AksesUsers{DB: conn}
+			// aksesUser.UpdateUser(UserAktif.Id_user, UserEdit.Name, UserEdit.Nomer_HP, UserEdit.Email, UserEdit.User_Name, UserEdit.Password, UserEdit.Address)
+			// fmt.Println("Berhasil Update")
+
+			// // fmt.Scanln(&UpdateNama)
+			// res := AksesUsers.UpdateUser(Id_user, "Tom")
+			// if res {
+			// 	fmt.Println("Data Berhasil Diperbarui")
+			// } else {
+			// 	fmt.Println("Data Gagal Diperbarui")
+			// }
 
 		case 3: //Hapus Akun
+			var option int
 			var Id_user string //ambil user yang Aktif
 			UserAktif := AksesUsers.GetSpecificUser(Id_user)
-
-			fmt.Println("Hapus Akun")
-			fmt.Println(AksesUsers.HapusUsers(UserAktif.Id_user))
-			fmt.Println("....................")
-			fmt.Println("Akun Anda Sudah dihapus")
-			fmt.Println("Terimakasih Atas Kunjungannya")
-			menu = false
+			// fmt.Println(UserAktif.Id_user)
+			fmt.Println("Apakah Anda Yakin Akan Menghapus Akun Anda?")
+			fmt.Println("1. Ya")
+			fmt.Println("2. Tidak")
+			fmt.Scan(&option)
+			if option == 1 {
+				fmt.Println("Hapus Akun")
+				fmt.Println(AksesUsers.HapusUsers(UserAktif.Id_user))
+				fmt.Println("....................")
+				fmt.Println("Akun Anda Sudah dihapus")
+				fmt.Println("Terimakasih Atas Kunjungannya")
+				menu = false
+			} else {
+				menu = true
+			}
 
 		case 4: //Tambah Buku Saya
 			var newBook entity.Books

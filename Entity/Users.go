@@ -126,17 +126,41 @@ func (as *AksesUsers) HitungAllUser() int {
 	return jumlah + 1
 }
 
-func (as *AksesUsers) UpdateUser(id string, UpdateNama string) bool {
-	UpdateExc := as.DB.Model(&Users{}).Where("Id_user = ?", id).Update("Name", UpdateNama)
+// func (as *AksesUsers) UpdateUser(id string, UpdateNama string) bool {
+// 	UpdateExc := as.DB.Model(&Users{}).Where("Id_user = ?", id).Update("Name", UpdateNama)
+// 	if err := UpdateExc.Error; err != nil {
+// 		log.Fatal(err)
+// 		return false
+// 	}
+// 	if aff := UpdateExc.RowsAffected; aff < 1 {
+// 		log.Println("Tidak ada data yang dihapus")
+// 		return false
+// 	}
+
+// 	return true
+
+// }
+
+func (as *AksesUsers) UpdateUser(ID string, nama string, nohp string, email string, username string, pass string, address string) string {
+
+	if err := as.DB.Where(Users{Id_user: ID}).
+		Assign(Users{Name: nama, Nomer_HP: nohp, Email: email, User_Name: username, Password: pass}).FirstOrCreate(&Users{}).Error; err != nil {
+		return "success"
+	}
+
+	return "success"
+}
+
+func (as *AksesUsers) EditUser(id string, nama string) string {
+
+	UpdateExc := as.DB.Model(&Users{}).Where("id_user = ?", id).Update("name", nama)
 	if err := UpdateExc.Error; err != nil {
 		log.Fatal(err)
-		return false
+		return "Error"
 	}
 	if aff := UpdateExc.RowsAffected; aff < 1 {
-		log.Println("Tidak ada data yang dihapus")
-		return false
+		return "Error"
 	}
 
-	return true
-
+	return "Sukses"
 }
