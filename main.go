@@ -25,7 +25,6 @@ func main() {
 	AksesBook := entity.AksesBook{DB: conn}
 	AksesUsers := entity.AksesUsers{DB: conn}
 	AksesRent := entity.AksesRentBook{DB: conn}
-	// var idUser string
 	var menu = false
 	for !menu {
 		var input int = 0
@@ -39,7 +38,6 @@ func main() {
 		fmt.Println("4. Keluar")
 		fmt.Print("Masukkan Pilihan Menu: ")
 		fmt.Scanln(&input)
-		// fmt.Println("4. Tambah Data Buku")
 
 		if input == 1 {
 			// var adduser entity.AksesUsers
@@ -55,7 +53,6 @@ func main() {
 			fmt.Print("Masukkan Nama: ")
 			in := bufio.NewReader(os.Stdin)
 			newUsers.Name, _ = in.ReadString('\n')
-			// fmt.Scanln(&newUsers.Name)
 			fmt.Print("Masukkan Nomor HP: ")
 			fmt.Scanln(&newUsers.Nomer_HP)
 			fmt.Print("Masukkan Email: ")
@@ -67,7 +64,6 @@ func main() {
 			fmt.Print("Masukkan Address: ")
 			en := bufio.NewReader(os.Stdin)
 			newUsers.Address, _ = en.ReadString('\n')
-			// fmt.Scanln(&newUsers.Address)
 
 			aksesUser := entity.AksesUsers{DB: conn}
 			aksesUser.TambahUserBaru(newUsers)
@@ -115,7 +111,7 @@ func main() {
 		fmt.Scan(&pilih)
 		fmt.Print("\n")
 		switch pilih {
-		case 1:
+		case 1: //liat Akun
 			// fmt.Println("----- Info Akun Saya -----")
 			// for _, val := range AksesUsers.ReadUserInfo() {
 			// 	fmt.Println("ID: ", val.Id_user)
@@ -126,7 +122,7 @@ func main() {
 			// 	fmt.Println("Email: ", val.Email)
 			// }
 
-		case 2:
+		case 2: //update user
 			var id string
 			id = "User-01"
 			// var NamaBaru string
@@ -141,24 +137,30 @@ func main() {
 				fmt.Println("Data Gagal Diperbarui")
 			}
 
-		case 3:
-			var id string
-			id = "User-01"
-			fmt.Print("Masukkan ID yang akan dihapus ")
-			fmt.Scanln(&id)
-			fmt.Println(AksesUsers.HapusUsers(id))
+		case 3: //Hapus Akun
+			var Id_user string //ambil user yang Aktif
+			UserAktif := AksesUsers.GetSpecificUser(Id_user)
+			// fmt.Println(UserAktif.Id_user)
 
-		case 4:
+			fmt.Println("Hapus Akun")
+			fmt.Println(AksesUsers.HapusUsers(UserAktif.Id_user))
+			fmt.Println("....................")
+			fmt.Println("Akun Anda Sudah dihapus")
+			fmt.Println("Terimakasih Atas Kunjungannya")
+			menu = false
+
+		case 4: //Tambah Buku Saya
 			var newBook entity.Books
 			var code string
 			JumlahBuku := AksesBook.HitungAllBukuAktiv()
 			code = strconv.Itoa(JumlahBuku)
 
 			newBook.Id_book = "Book-0" + code
-
 			newBook.Rent_status = true
-			var Id_user string
+
+			var Id_user string //ambil user yang Aktif
 			ID := AksesUsers.GetSpecificUser(Id_user)
+
 			newBook.Owned_by = ID.Id_user
 
 			fmt.Println("Masukkan Judul Buku: ")

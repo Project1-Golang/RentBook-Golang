@@ -29,7 +29,6 @@ type AksesUsers struct {
 
 func (as *AksesUsers) GetAllData() []Users {
 	var daftarUsers = []Users{}
-	// err := as.DB.Raw("Select * from student").Scan(&daftarStudent)
 	err := as.DB.Find(&daftarUsers)
 	if err.Error != nil {
 		log.Fatal(err.Statement.SQL.String())
@@ -40,11 +39,6 @@ func (as *AksesUsers) GetAllData() []Users {
 }
 
 func (as *AksesUsers) TambahUserBaru(newUsers Users) Users {
-	// if newUsers.name == "Jerry" {
-	// 	newUsers.id_user = uint(1)
-	// }
-	// uid := uuid.New()
-	// newUsers.Id_user = uid.String()
 	err := as.DB.Create(&newUsers).Error
 	if err != nil {
 		log.Println(err)
@@ -56,8 +50,6 @@ func (as *AksesUsers) TambahUserBaru(newUsers Users) Users {
 
 func (as *AksesUsers) GetSpecificUser(UID string) Users {
 	var daftarUsers = Users{}
-	// daftarUsers.Id_user = uint(UID)
-	// err := as.DB.Raw("Select * from student").Scan(&daftarStudent)
 	err := as.DB.First(&daftarUsers)
 	if err.Error != nil {
 		log.Fatal(err.Statement.SQL.String())
@@ -100,33 +92,33 @@ func (as *AksesUsers) GetUserPassword(Password string) bool {
 	return true
 }
 
-func (as *AksesUsers) HapusUsers(id string) bool {
+func (as *AksesUsers) HapusUsers(id string) string {
 	postExc := as.DB.Where("Id_user = ?", id).Delete(&Users{})
 	if err := postExc.Error; err != nil {
 		log.Fatal(err)
-		return false
+		return "Gagal Menghapus User"
 	}
 	if aff := postExc.RowsAffected; aff < 1 {
 		log.Println("Tidak ada data yang dihapus")
-		return false
+		return "Gagal Menghapus User"
 	}
 
-	return true
+	return "Hapus User Berhasil !"
 
 }
 
-// func (as *AksesUsers) ReadUserInfo(Id_user string) Users {
-// 	var daftarUsers = Users{}
-// 	// err := as.DB.Where("Id_user", Id_user).First(&daftarUsers)
-// 	// err := as.DB.Find(&daftarUsers)
-// 	err := as.DB.Select("Id_user", "Name", "Nomer_HP", "User_Name", "Address", "Email").Where("Id_user = ?", Id_user).Limit(1).Find(&daftarUsers)
-// 	if err.Error != nil {
-// 		log.Fatal(err.Statement.SQL.String())
-// 		return nil
-// 	}
+func (as *AksesUsers) ReadUserInfo(Id_user string) Users {
+	var daftarUsers = Users{}
+	// err := as.DB.Where("Id_user", Id_user).First(&daftarUsers)
+	// err := as.DB.Find(&daftarUsers)
+	err := as.DB.Select("Id_user", "Name", "Nomer_HP", "User_Name", "Address", "Email").Where("Id_user = ?", Id_user).Limit(1).Find(&daftarUsers)
+	if err.Error != nil {
+		log.Fatal(err.Statement.SQL.String())
+		// return nil
+	}
 
-// 	return daftarUsers
-// }
+	return daftarUsers
+}
 
 func (as *AksesUsers) HitungAllUser() int {
 	var jumlah int
@@ -148,19 +140,3 @@ func (as *AksesUsers) UpdateUser(id string, UpdateNama string) bool {
 	return true
 
 }
-
-/*
-Id_user    string      `gorm:"primaryKey;type:varchar(36);"`
-	Books      []Books     `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	Rent_Book  []Rent_Book `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	Name       string
-	Status     string
-	Nomer_HP   string
-	Email      string `gorm:"unique"`
-	User_Name  string `gorm:"unique"`
-	Password   string
-	Address    string
-	Created_at time.Time `gorm:"autoCreateTime"`
-	Updated_at time.Time `gorm:"autoCreateTime"`
-
-*/
