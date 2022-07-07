@@ -105,11 +105,12 @@ func main() {
 		fmt.Println("3. Hapus Akun Saya")
 		fmt.Println("4. Tambah Buku Saya")
 		fmt.Println("5. Lihat Daftar Buku Anda")
-		fmt.Println("6. Hapus Buku Anda")
-		fmt.Println("7. Pinjam Buku")
-		fmt.Println("8. Kembalikan Buku")
-		fmt.Println("9. Lihat Daftar Yang Tersedia")
-		fmt.Println("10. Exit")
+		fmt.Println("6. Perbarui Buku Anda")
+		fmt.Println("7. Hapus Buku Anda")
+		fmt.Println("8. Pinjam Buku")
+		fmt.Println("9. Kembalikan Buku")
+		fmt.Println("10. Lihat Daftar Yang Tersedia")
+		fmt.Println("11. Exit")
 		fmt.Print("Pilih Menu: ")
 		fmt.Scan(&pilih)
 		fmt.Print("\n")
@@ -166,13 +167,15 @@ func main() {
 		case 5:
 
 		case 6:
+
+		case 7:
 			var IDBook string
 			IDBook = "Book-02"
 			fmt.Print("Masukkan ID yang akan dihapus ")
 			fmt.Scanln(&IDBook)
 			fmt.Println(AksesBook.HapusBuku(IDBook))
 
-		case 7:
+		case 8:
 			var newRent entity.Rent_Book
 			var code string
 			jumlahdata := AksesRent.HitungAllRentBook()
@@ -189,11 +192,11 @@ func main() {
 			AksesRent.PinjamBuku(newRent)
 			fmt.Println("Berhasil Pinjam")
 
-		case 8:
-
 		case 9:
 
 		case 10:
+
+		case 11:
 			fmt.Println("Terimakasih Atas Kunjungannya")
 			menu = false
 		}
