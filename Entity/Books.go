@@ -93,3 +93,28 @@ func (as *AksesBook) HitungAllBukuAktiv() int {
 
 // result.RowsAffected // returns updated records count
 // result.Error
+
+// func (as *AksesBook) UpdateBook(Id_book string) Books {
+// 	var daftarBook = Books{}
+// 	// err := as.DB.Where("Id_user", Id_user).First(&daftarUsers)
+// 	// err := as.DB.Find(&daftarUsers)
+// 	err := as.DB.Select("Id_book", "Title_book", "Isbn", "Author").Where("Id_book = ?", Id_book).Limit(1).Find(&daftarBook)
+// 	if err.Error != nil {
+// 		log.Fatal(err.Statement.SQL.String())
+// 		// return nil
+// 	}
+// }
+
+func (as *AksesUsers) UpdateBook(id string, nama string) string {
+
+	UpdateExc := as.DB.Model(&Users{}).Where("Id_book = ?", id).Update("name", nama)
+	if err := UpdateExc.Error; err != nil {
+		log.Fatal(err)
+		return "Error"
+	}
+	if aff := UpdateExc.RowsAffected; aff < 1 {
+		return "Error"
+	}
+
+	return "Sukses"
+}

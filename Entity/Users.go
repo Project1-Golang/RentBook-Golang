@@ -48,9 +48,9 @@ func (as *AksesUsers) TambahUserBaru(newUsers Users) Users {
 	return newUsers
 }
 
-func (as *AksesUsers) GetSpecificUser(UID string) Users {
+func (as *AksesUsers) GetSpecificUser(User_Name, Password string) Users { // Edit Mas Jerry
 	var daftarUsers = Users{}
-	err := as.DB.First(&daftarUsers)
+	err := as.DB.Where("user_name = ? and password = ?", User_Name, Password).First(&daftarUsers)
 	if err.Error != nil {
 		log.Fatal(err.Statement.SQL.String())
 		return Users{}
@@ -151,9 +151,9 @@ func (as *AksesUsers) UpdateUser(ID string, nama string, nohp string, email stri
 	return "success"
 }
 
-func (as *AksesUsers) EditUser(id string, nama string) string {
+func (as *AksesUsers) EditUser(id string, nama string, NewData Users) string {
 
-	UpdateExc := as.DB.Model(&Users{}).Where("id_user = ?", id).Update("name", nama)
+	UpdateExc := as.DB.Model(&Users{}).Where("id_user = ?", id).Updates(NewData)
 	if err := UpdateExc.Error; err != nil {
 		log.Fatal(err)
 		return "Error"

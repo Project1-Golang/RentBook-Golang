@@ -25,6 +25,7 @@ func main() {
 	AksesBook := entity.AksesBook{DB: conn}
 	AksesUsers := entity.AksesUsers{DB: conn}
 	AksesRent := entity.AksesRentBook{DB: conn}
+	var UserAktif entity.Users
 	var menu = false
 	for !menu {
 		var input int = 0
@@ -79,6 +80,7 @@ func main() {
 				fmt.Println("Username atau Password anda Salah \n Silahkan Periksa Kembali")
 			} else {
 				fmt.Println("Anda Berhasil Login")
+				UserAktif = AksesUsers.GetSpecificUser(UserName, Password) // Edit Mas Jerry
 				menu = true
 			}
 		} else if input == 3 {
@@ -112,15 +114,15 @@ func main() {
 		fmt.Print("\n")
 		switch pilih {
 		case 1: //liat Akun
-			// fmt.Println("----- Info Akun Saya -----")
-			// for _, val := range AksesUsers.ReadUserInfo() {
-			// 	fmt.Println("ID: ", val.Id_user)
-			// 	fmt.Println("Nama: ", val.Name)
-			// 	fmt.Println("Nomor HP: ", val.Nomer_HP)
-			// 	fmt.Println("User Name: ", val.User_Name)
-			// 	fmt.Println("Address: ", val.Address)
-			// 	fmt.Println("Email: ", val.Email)
-			// }
+			fmt.Println("----- Info Akun Saya -----")
+			for _, val := range AksesUsers.ReadUserInfo() {
+				fmt.Println("ID: ", val.Id_user)
+				fmt.Println("Nama: ", val.Name)
+				fmt.Println("Nomor HP: ", val.Nomer_HP)
+				fmt.Println("User Name: ", val.User_Name)
+				fmt.Println("Address: ", val.Address)
+				fmt.Println("Email: ", val.Email)
+			}
 
 		case 2: //update user
 
@@ -131,8 +133,17 @@ func main() {
 			var nama string
 			fmt.Print("Masukkan Nama :")
 			fmt.Scan(&nama)
-			fmt.Println(nama)
+			// fmt.Println(&nama)
+			// fmt.Print("Masukkan Nomor HP: ")
+			// fmt.Scanln(&Nomer_HP)
+			// fmt.Print("Masukkan Email: ")
+			// fmt.Scanln(&Email)
+			// fmt.Print("Masukkan User Name: ")
+			// fmt.Scanln(&User_Name)
+			// fmt.Print("Masukkan Password: ")
+			// fmt.Scanln(&Password)
 			AksesUsers.EditUser(UserAktif.Id_user, nama)
+			// AksesUsers.EditUser(UserAktif.Id_user, nama, Nomer_HP, Email, User_Name, Password)
 			// //input data
 			// var UserEdit entity.Users
 			// UserEdit.Id_user = UserAktif.Id_user
@@ -140,14 +151,6 @@ func main() {
 			// fmt.Print("Masukkan Nama: ")
 			// in := bufio.NewReader(os.Stdin)
 			// UserEdit.Name, _ = in.ReadString('\n')
-			// fmt.Print("Masukkan Nomor HP: ")
-			// fmt.Scanln(&UserEdit.Nomer_HP)
-			// fmt.Print("Masukkan Email: ")
-			// fmt.Scanln(&UserEdit.Email)
-			// fmt.Print("Masukkan User Name: ")
-			// fmt.Scanln(&UserEdit.User_Name)
-			// fmt.Print("Masukkan Password: ")
-			// fmt.Scanln(&UserEdit.Password)
 			// fmt.Print("Masukkan Address: ")
 			// en := bufio.NewReader(os.Stdin)
 			// UserEdit.Address, _ = en.ReadString('\n')
@@ -166,8 +169,8 @@ func main() {
 
 		case 3: //Hapus Akun
 			var option int
-			var Id_user string //ambil user yang Aktif
-			UserAktif := AksesUsers.GetSpecificUser(Id_user)
+			// var Id_user string //ambil user yang Aktif
+			// UserAktif := AksesUsers.GetSpecificUser(Id_user)
 			// fmt.Println(UserAktif.Id_user)
 			fmt.Println("Apakah Anda Yakin Akan Menghapus Akun Anda?")
 			fmt.Println("1. Ya")
@@ -217,6 +220,15 @@ func main() {
 		case 5:
 
 		case 6:
+			// var Id_book string //ambil user yang Aktif
+
+			// BookUpdate := AksesUsers.UpdateBook(Id_book)
+
+			// var nama string
+			// fmt.Print("Masukkan Nama :")
+			// fmt.Scan(&nama)
+
+			// AksesUsers.EditUser(BookUpdate.Id_book, nama)
 
 		case 7: //hapus buku saya
 			var IDBook string
@@ -249,9 +261,14 @@ func main() {
 		case 9:
 
 		case 10:
+			fmt.Println("Daftar Buku Yang Ada")
+			for _, val := range AksesBook.GetAllData() {
+				fmt.Println(val.Id_book, val.Title_book, val.Author)
+			}
 
 		case 11:
 			fmt.Println("Terimakasih Atas Kunjungannya")
+			UserAktif = entity.Users{} // Edit Mas Jerry
 			menu = false
 		}
 	}
