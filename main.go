@@ -87,8 +87,16 @@ func main() {
 			}
 		} else if input == 3 {
 			fmt.Println("Daftar Buku Yang Ada")
+			var no int
+			fmt.Println("Berikut adalah daftar Buku yang tersedia")
 			for _, val := range AksesBook.GetAllData() {
-				fmt.Println(val.Id_book, val.Title_book, val.Author)
+				fmt.Println("****************************************")
+				no++
+				fmt.Println("No :", no)
+				fmt.Println("ID :", val.Id_book)
+				strings.tr
+				fmt.Println("Judul :", val.Title_book)
+				fmt.Println("Penulis :", val.Author)
 			}
 		} else {
 			fmt.Println("Terimakasih Atas Kunjungannya")
