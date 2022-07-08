@@ -8,9 +8,9 @@ import (
 )
 
 type Users struct {
-	Id_user    string      `gorm:"primaryKey;type:varchar(36);"`
-	Books      []Books     `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	Rent_Book  []Rent_Book `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Id_user string `gorm:"primaryKey;type:varchar(36);"`
+	// Books      []Books     `gorm:"foreignKey:owned_by_book; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	// Rent_Book  []Rent_Book `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	Name       string
 	Status     string
 	Nomer_HP   string

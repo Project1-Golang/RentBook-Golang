@@ -278,6 +278,20 @@ func main() {
 			fmt.Println(AksesBook.HapusBukuSaya(ID, IDBook))
 
 		case 8: //Pinjam Buku
+			//tampilkan buku bukan milik saya
+			fmt.Println("*******************************")
+			fmt.Println("--- DAFTAR BUKU YANG BISA ANDA PINJAM ---")
+			fmt.Println("*******************************")
+			ID := UserAktif.Id_user
+			daftarBukuRent := AksesBook.GetBookAnotherUser_StatusRentOk(ID)
+			var num int
+			for _, val := range daftarBukuRent {
+				if val.Rent_status {
+					num++
+					fmt.Println(num, "Judul Buku :", val.Title_book, "IDBUKU :", val.Id_book)
+				}
+			}
+			//proses peminjaman ke tabel Rent
 			var newRent entity.Rent_Book
 			var code string
 			jumlahdata := AksesRent.HitungAllRentBook()
@@ -285,17 +299,55 @@ func main() {
 
 			newRent.Id_rent_book = "Pinj-0" + code
 			// var id string
-			ID := UserAktif.Id_user
-			newRent.Owned_by = ID
+			newRent.Id_User = ID
 
 			newRent.Is_Returned = false
+			newRent.Return_date = ""
 			fmt.Print("Masukkan Id Books: ")
-			fmt.Scan(&newRent.Owned_by_book)
+			fmt.Scan(&newRent.Id_book)
 
 			AksesRent.PinjamBuku(newRent)
+
+			//ubah status buku di tabel buku
+
+			AksesBook.UpdateStatusBook(newRent.Id_book, false)
+
 			fmt.Println("Berhasil Pinjam")
 
 		case 9: //Kembalikan Buku
+			//tampilan semua peminjaman si user
+			var IDUSER = UserAktif.Id_user
+			daftarBukuPinjam := AksesRent.RentByUser(IDUSER)
+			fmt.Println("*******************************")
+			fmt.Println("--- DAFTAR BUKU PINJAM ---")
+			fmt.Println("*******************************")
+
+			var num int
+			for _, val := range daftarBukuPinjam {
+				num++
+				fmt.Println(num, "ID BUKU :", val.Id_book, "ID RENT:", val.Id_rent_book)
+
+			}
+			//pilih buku yang mau dikembalikan
+			var IDBOOK, IDRENT string
+
+			fmt.Println("Masukkan ID Buku: ")
+			fmt.Scan(&IDBOOK)
+
+			fmt.Println("Masukkan ID RENT:")
+			fmt.Scan(&IDRENT)
+
+			//update returned = true dan return date ke now
+			var newreturn entity.Rent_Book
+
+			newreturn.Is_Returned = true
+			// newreturn.Return_date = time.Now()
+
+			AksesRent.KembalikanBuku(IDRENT, IDBOOK)
+
+			//ubah status buku di tabel buku
+			AksesBook.UpdateStatusBook(IDBOOK, true)
+			fmt.Println("Berhasil dikembalikan")
 
 		case 10: //Lihat Daftar Buku Yang Tersedia
 			fmt.Println("*******************************")

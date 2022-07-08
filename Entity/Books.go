@@ -8,9 +8,9 @@ import (
 )
 
 type Books struct {
-	Id_book     string `gorm:"primaryKey;type:varchar(36);"`
-	Owned_by    string
-	Rent_Book   []Rent_Book `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE, OnDelete:SET NULL;"`
+	Id_book  string `gorm:"primaryKey;type:varchar(36);"`
+	Owned_by string
+	// Rent_Book   []Rent_Book `gorm:"foreignKey:owned_by; constraint:OnUpdate:CASCADE, OnDelete:CASCADE; "`
 	Title_book  string
 	Isbn        string
 	Author      string
@@ -101,9 +101,23 @@ func (as *AksesBook) HitungAllBukuAktiv() int {
 // 	}
 // }
 
-func (as *AksesUsers) UpdateBook(id string, nama string) string {
+// func (as *AksesUsers) UpdateBook(id string, nama string) string {
 
-	UpdateExc := as.DB.Model(&Users{}).Where("Id_book = ?", id).Update("name", nama)
+// 	UpdateExc := as.DB.Model(&Users{}).Where("Id_book = ?", id).Update("name", nama)
+// 	if err := UpdateExc.Error; err != nil {
+// 		log.Fatal(err)
+// 		return "Error"
+// 	}
+// 	if aff := UpdateExc.RowsAffected; aff < 1 {
+// 		return "Error"
+// 	}
+
+// 	return "Sukses"
+// }
+
+func (as *AksesBook) UpdateStatusBook(id string, status bool) string {
+
+	UpdateExc := as.DB.Model(&Books{}).Where("id_book = ?", id).Update("rent_status", status)
 	if err := UpdateExc.Error; err != nil {
 		log.Fatal(err)
 		return "Error"
@@ -118,6 +132,17 @@ func (as *AksesUsers) UpdateBook(id string, nama string) string {
 func (as *AksesBook) Get_Book_belongto_User(ID string) []Books {
 	var daftarUserBook = []Books{}
 	err := as.DB.Where("owned_by = ?", ID).Find(&daftarUserBook)
+	if err.Error != nil {
+		log.Fatal(err.Statement.SQL.String())
+		return nil
+	}
+
+	return daftarUserBook
+}
+
+func (as *AksesBook) GetBookAnotherUser_StatusRentOk(ID string) []Books {
+	var daftarUserBook = []Books{}
+	err := as.DB.Where("owned_by != ? and rent_status=1", ID).Find(&daftarUserBook)
 	if err.Error != nil {
 		log.Fatal(err.Statement.SQL.String())
 		return nil
