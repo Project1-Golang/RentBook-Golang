@@ -341,7 +341,7 @@ func main() {
 			var newreturn entity.Rent_Book
 
 			newreturn.Is_Returned = true
-			newreturn.Return_date = "null"
+			// newreturn.Return_date = time.Now()
 
 			AksesRent.KembalikanBuku(IDRENT, IDBOOK)
 
