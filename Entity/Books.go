@@ -50,8 +50,6 @@ func (as *AksesBook) TambahBukuBaru(newBook Books) Books {
 
 func (as *AksesBook) GetSpecificBuku(UID int) Books {
 	var daftarBook = Books{}
-	// daftarBook.Id_book = uint(UID)
-	// err := as.DB.Raw("Select * from student").Scan(&daftarStudent)
 	err := as.DB.First(&daftarBook)
 	if err.Error != nil {
 		log.Fatal(err.Statement.SQL.String())
@@ -82,38 +80,6 @@ func (as *AksesBook) HitungAllBukuAktiv() int {
 	as.DB.Raw("SELECT count(id_book) as 'jumlah' FROM books").Scan(&jumlah)
 	return jumlah + 1
 }
-
-//// Get updated records count with `RowsAffected`
-//result := db.Model(User{}).Where("role = ?", "admin").Updates(User{Name: "hello", Age: 18})
-// UPDATE users SET name='hello', age=18 WHERE role = 'admin';
-
-// result.RowsAffected // returns updated records count
-// result.Error
-
-// func (as *AksesBook) UpdateBook(Id_book string) Books {
-// 	var daftarBook = Books{}
-// 	// err := as.DB.Where("Id_user", Id_user).First(&daftarUsers)
-// 	// err := as.DB.Find(&daftarUsers)
-// 	err := as.DB.Select("Id_book", "Title_book", "Isbn", "Author").Where("Id_book = ?", Id_book).Limit(1).Find(&daftarBook)
-// 	if err.Error != nil {
-// 		log.Fatal(err.Statement.SQL.String())
-// 		// return nil
-// 	}
-// }
-
-// func (as *AksesUsers) UpdateBook(id string, nama string) string {
-
-// 	UpdateExc := as.DB.Model(&Users{}).Where("Id_book = ?", id).Update("name", nama)
-// 	if err := UpdateExc.Error; err != nil {
-// 		log.Fatal(err)
-// 		return "Error"
-// 	}
-// 	if aff := UpdateExc.RowsAffected; aff < 1 {
-// 		return "Error"
-// 	}
-
-// 	return "Sukses"
-// }
 
 func (as *AksesBook) UpdateStatusBook(id string, status bool) string {
 
