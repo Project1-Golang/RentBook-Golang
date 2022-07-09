@@ -76,7 +76,7 @@ func (as *AksesRentBook) ValidasiPinjam(idbook string, iduser string) (string, i
 
 	if bukuExist.RowsAffected > 0 {
 		//validasi kedua bukunya bukan milik dia
-		bolehPinjam := as.DB.Where("owned_by != ?", iduser).Find(&Buku)
+		bolehPinjam := as.DB.Where("owned_by != ? and rent_status=1", iduser).Find(&Buku)
 		if bolehPinjam.RowsAffected > 0 {
 			//jalan kan pinjam
 			return "Sukses", 1
