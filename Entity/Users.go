@@ -141,16 +141,6 @@ func (as *AksesUsers) HitungAllUser() int {
 
 // }
 
-func (as *AksesUsers) UpdateUser(ID string, nama string, nohp string, email string, username string, pass string, address string) string {
-
-	if err := as.DB.Where(Users{Id_user: ID}).
-		Assign(Users{Name: nama, Nomer_HP: nohp, Email: email, User_Name: username, Password: pass}).FirstOrCreate(&Users{}).Error; err != nil {
-		return "success"
-	}
-
-	return "success"
-}
-
 func (as *AksesUsers) EditUser(id string, NewData Users) string {
 
 	UpdateExc := as.DB.Model(&Users{}).Where("id_user = ?", id).Updates(NewData)

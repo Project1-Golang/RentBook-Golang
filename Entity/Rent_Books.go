@@ -67,3 +67,19 @@ func (as *AksesRentBook) RentByUser(id string) []Rent_Book {
 
 	return daftarrent
 }
+
+func (as *AksesRentBook) ValidasiPinjam(idbook string, iduser string) bool {
+	validasi := Books{}
+	var valid bool
+	//idbook salah
+	err := as.DB.Where("id_book = ?", idbook).Find(&validasi)
+	// err := as.DB.Where("owned_by != ?", iduser).Find(&validasi)
+	//SELECT * FROM books  WHERE `id_book`!="ID INPUTAN" AND `owned_by`!="ID USER"
+	if err := err.Error; err != nil {
+		return valid
+	}
+	if aff := err.RowsAffected; aff < 1 {
+		return !valid
+	}
+	return valid
+}
