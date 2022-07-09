@@ -68,18 +68,24 @@ func (as *AksesRentBook) RentByUser(id string) []Rent_Book {
 	return daftarrent
 }
 
-func (as *AksesRentBook) ValidasiPinjam(idbook string, iduser string) bool {
-	validasi := Books{}
-	var valid bool
-	//idbook salah
-	err := as.DB.Where("id_book = ?", idbook).Find(&validasi)
-	// err := as.DB.Where("owned_by != ?", iduser).Find(&validasi)
-	//SELECT * FROM books  WHERE `id_book`!="ID INPUTAN" AND `owned_by`!="ID USER"
-	if err := err.Error; err != nil {
-		return valid
+func (as *AksesRentBook) ValidasiPinjam(idbook string, iduser string) (string, int) {
+
+	//validasi pertama
+	Buku := Books{}
+	bukuExist := as.DB.Where("id_book = ?", idbook).Find(&Buku)
+
+	if bukuExist.RowsAffected > 0 {
+		//validasi kedua bukunya bukan milik dia
+		bolehPinjam := as.DB.Where("owned_by != ?", iduser).Find(&Buku)
+		if bolehPinjam.RowsAffected > 0 {
+			//jalan kan pinjam
+			return "Sukses", 1
+		}
 	}
-	if aff := err.RowsAffected; aff < 1 {
-		return !valid
+	if bukuExist.RowsAffected <= 0 {
+		return "ID BUKU Salah", 0
+
 	}
-	return valid
+
+	return "Silahkan Masukkan ID BUKU", 0
 }

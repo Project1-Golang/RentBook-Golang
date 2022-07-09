@@ -306,21 +306,16 @@ func main() {
 			fmt.Print("Masukkan Id Books: ")
 			fmt.Scan(&newRent.Id_book)
 
-			fmt.Println("BOOK", newRent.Id_book)
-			fmt.Println("USER", newRent.Id_User)
-
-			valid := AksesRent.ValidasiPinjam(newRent.Id_book, newRent.Id_User)
-			if valid {
-				// 	//lanjut pinjam
-				// 	AksesRent.PinjamBuku(newRent)
-
-				// 	//ubah status buku di tabel buku
-				// 	AksesBook.UpdateStatusBook(newRent.Id_book, false)
-
+			var pesan string
+			pesan, valid := AksesRent.ValidasiPinjam(newRent.Id_book, newRent.Id_User)
+			fmt.Println(pesan)
+			// fmt.Println(valid)
+			if valid == 1 {
+				//lanjut pinjam
+				AksesRent.PinjamBuku(newRent)
 				fmt.Println("Berhasil Pinjam")
-
-			} else {
-				fmt.Println("ID Buku tidak Sesuai")
+				//ubah status buku menjadi terpinjam di tabel buku
+				AksesBook.UpdateStatusBook(newRent.Id_book, false)
 			}
 
 		case 9: //Kembalikan Buku
